@@ -17,7 +17,7 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.UserDetailsAwareConfigurer;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.UserDetailsServiceConfigurer;
-;
+
 @Configuration
 @EnableWebSecurity
 
