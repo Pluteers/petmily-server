@@ -20,10 +20,10 @@ public class MemberService {
 
     public void signUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
-        if(memberRepository.findByEmail(memberSignUpDto.getEmail()) != null){
+        if(memberRepository.findByEmail(memberSignUpDto.getEmail()).isPresent()){
             throw new Exception("이미 존재하는 이메일입니다.");
         }
-        if(memberRepository.findByNickname(memberSignUpDto.getNickname()) != null){
+        if(memberRepository.findByNickname(memberSignUpDto.getNickname()).isPresent()){
             throw new Exception("이미 존재하는 닉네임입니다.");
         }
         Member member= Member.builder()
@@ -33,6 +33,12 @@ public class MemberService {
                 .name(memberSignUpDto.getName())
                 .phone(memberSignUpDto.getPhone())
                 .role(Role.USER)
+                .status(true)
+
                 .build();
+        member.passwordEncode(passwordEncoder);
+        memberRepository.save(member);
     }
+
+
 }

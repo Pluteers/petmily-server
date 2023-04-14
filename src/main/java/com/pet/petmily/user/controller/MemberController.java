@@ -3,7 +3,9 @@ package com.pet.petmily.user.controller;
 import com.pet.petmily.user.dto.MemberSignUpDto;
 import com.pet.petmily.user.service.MemberService;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,8 @@ public class MemberController {
 
 
     private final MemberService memberService;
+
+
 
     @PostMapping("/sign-up")
     public String signUp(@RequestBody MemberSignUpDto memberSignUpDto) throws Exception {

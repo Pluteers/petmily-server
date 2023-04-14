@@ -1,15 +1,16 @@
 package com.pet.petmily.user.entity;
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+
+
 
 
 @Entity
-@Data
+@Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member")
@@ -31,8 +32,8 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
     @Enumerated(EnumType.STRING)
-    private SocialType socialType;//소셜 로그인 타입,자체 로그인 시는 null
-    private String socialId;//소셜 로그인 아이디,자체 로그인 시는 null
+    private SocialType socialType;//소셜 로그인 타입,자체 로그인 시는 null(즉 nullable해야함)
+    private String socialId;//소셜 로그인 아이디,자체 로그인 시는 null(즉 nullable해야함)
 
     private String refreshToken;
     private boolean status;

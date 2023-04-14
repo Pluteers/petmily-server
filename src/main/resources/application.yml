@@ -1,18 +1,39 @@
 spring:
+
   profiles:
     group:
       "local": "local, jwt, oauth"
     active: local
 ---
 spring:
+  h2:
+    console:
+      enabled: true  # H2 Console을 사용할지 여부 (H2 Console은 H2 Database를 UI로 제공해주는 기능)
+      path: /h2-console  # H2 Console의 Path
+    # Database Setting Info (Database를 H2로 사용하기 위해 H2연결 정보 입력)
+  datasource:
+      driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
+      url: jdbc:h2:~/test  # H2 접속 정보
+      username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+      password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
   config:
     activate:
       on-profile: "local"
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/petmily?useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Seoul
-    username: impjs17
-    password: jj413041!
+
 server:
   port: 8088
+jwt:
+    secret: dasdasf234fuhvertsv34789yhiuFDSIUFGYDTE5fsa2312423214
+
+    access:
+      expiration: 3600000 # 1시간(60분) (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h))
+      header: Authorization
+
+    refresh:
+      expiration: 1209600000 #  (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h) * 24L(h -> 하루) * 14(2주))
+      header: Authorization-
