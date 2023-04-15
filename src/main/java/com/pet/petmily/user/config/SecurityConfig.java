@@ -9,11 +9,12 @@ import com.pet.petmily.user.filter.CustomJsonUsernamePasswordAuthenticationFilte
 import com.pet.petmily.user.handler.LoginSuccessHandler;
 import com.pet.petmily.user.handler.LoginFailureHandler;
 import com.pet.petmily.user.service.LoginService;
-/**
-import login.oauthtest4.global.oauth2.handler.OAuth2LoginFailureHandler;
-import login.oauthtest4.global.oauth2.handler.OAuth2LoginSuccessHandler;
-import login.oauthtest4.global.oauth2.service.CustomOAuth2UserService;
- **/
+
+//소셜 로그인 패키지
+import com.pet.petmily.user.oauth2.handler.OAuth2LoginFailureHandler;
+import com.pet.petmily.user.oauth2.handler.OAuth2LoginSuccessHandler;
+import com.pet.petmily.user.oauth2.service.CustomOAuth2UserService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,11 +42,12 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final ObjectMapper objectMapper;
-    /** 소셜 로그인 부분
+
+    //OAuth부분
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
     private final CustomOAuth2UserService customOAuth2UserService;
-     **/
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -69,16 +71,17 @@ public class SecurityConfig {
                 .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
                 .antMatchers("/sign-up").permitAll() // 회원가입 접근 가능
                 .antMatchers("/h2-consol/**").permitAll() // h2-console 접근 가능
-                .anyRequest().authenticated(); // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 
-                /**
-                 *  .and()
+                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+
+
+                .and()
                 //== 소셜 로그인 설정 ==//
                 .oauth2Login()
                 .successHandler(oAuth2LoginSuccessHandler) // 동의하고 계속하기를 눌렀을 때 Handler 설정
                 .failureHandler(oAuth2LoginFailureHandler) // 소셜 로그인 실패 시 핸들러 설정
                 .userInfoEndpoint().userService(customOAuth2UserService); // customUserService 설정
-                 **/
+
 
         // 원래 스프링 시큐리티 필터 순서가 LogoutFilter 이후에 로그인 필터 동작
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
@@ -116,6 +119,7 @@ public class SecurityConfig {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
+
         return new LoginSuccessHandler(jwtService, memberRepository);
     }
 
@@ -124,6 +128,7 @@ public class SecurityConfig {
      */
     @Bean
     public LoginFailureHandler loginFailureHandler() {
+
         return new LoginFailureHandler();
     }
 

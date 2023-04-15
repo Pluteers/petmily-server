@@ -36,7 +36,7 @@ public class MemberService {
                 .status(true)
 
                 .build();
-        member.passwordEncode(passwordEncoder);
+        //member.passwordEncode(passwordEncoder);
         memberRepository.save(member);
     }
 

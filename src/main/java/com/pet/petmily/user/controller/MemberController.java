@@ -23,11 +23,12 @@ public class MemberController {
     @PostMapping("/sign-up")
     public String signUp(@RequestBody MemberSignUpDto memberSignUpDto) throws Exception {
         memberService.signUp(memberSignUpDto);
-        return "회원가입 성공";
+        return "redirect:signUpSuccess";
     }
 
     @GetMapping("/jwt-test")
     public String jwtTest() {
+
         return "jwtTest 요청 성공";
     }
 }
