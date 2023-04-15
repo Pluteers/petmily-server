@@ -53,13 +53,13 @@ public class JwtService {
         Date now = new Date();
         return JWT.create() // JWT 토큰을 생성하는 빌더 반환
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
-                .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod)) // 토큰 만료 시간 설정
+                .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod)) //    add토큰 만료 시간 설정
 
                 //클레임 정보는 email
                 //추가적으로 식별자, 이름 추가해보면 좋아보임
                 //추가할 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정하기
                 .withClaim(EMAIL_CLAIM, email)
-                .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
+                .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application.yml에서 지정한 secret 키로 암호화
     }
 
     /**

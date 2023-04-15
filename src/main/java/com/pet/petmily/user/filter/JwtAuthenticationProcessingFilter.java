@@ -1,7 +1,9 @@
 package com.pet.petmily.user.filter;
 
-import com.pet.petmily.user.entity.Member;
+
+
 import com.pet.petmily.user.repository.MemberRepository;
+import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.service.JwtService;
 import com.pet.petmily.user.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class    JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
+public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private static final String NO_CHECK_URL = "/login"; // "/login"으로 들어오는 요청은 Filter 작동 X
 
@@ -114,13 +116,11 @@ public class    JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                   FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
-
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
                 .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
                         .ifPresent(email -> memberRepository.findByEmail(email)
                                 .ifPresent(this::saveAuthentication)));
-
 
         filterChain.doFilter(request, response);
     }
