@@ -12,8 +12,6 @@ public class MemberSignUpDto extends BaseTimeEntity{
 
     private String email;
     private String password;
-    private String name;
-    private String phone;
     private String nickname;
     private boolean status;
 

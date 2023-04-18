@@ -67,6 +67,7 @@ public class JwtService {
      * RefreshToken은 Claim에 email도 넣지 않으므로 withClaim() X
      */
     public String createRefreshToken() {
+        log.info("createRefreshToken");
         Date now = new Date();
         return JWT.create()
                 .withSubject(REFRESH_TOKEN_SUBJECT)

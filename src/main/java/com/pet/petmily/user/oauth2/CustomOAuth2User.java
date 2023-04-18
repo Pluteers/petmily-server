@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @Getter
 public class CustomOAuth2User extends DefaultOAuth2User {
+    //DefaultOAuth2User 상속
 
     private String email;
     private Role role;

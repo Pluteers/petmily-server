@@ -69,10 +69,11 @@ public class SecurityConfig {
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 모두 접근 가능, h2-console에 접근 가능
                 .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-                .antMatchers("/sign-up").permitAll() // 회원가입 접근 가능
-                .antMatchers("/h2-consol/**").permitAll() // h2-console 접근 가능
-
-                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+                .antMatchers("/admin/**").hasRole("ADMIN") // admin으로 시작하는 경로는 ADMIN 권한만 접근 가능
+                .antMatchers("/user/**").hasAnyRole("USER","ADMIN") // user으로 시작하는 경로는 USER,ADMIN 권한만 접근 가능
+                .antMatchers("/index", "/login").permitAll() // index, login 페이지는 모두 접근 가능
+                .antMatchers("/sign-up").permitAll() // sign-up 페이지는 모두 접근 가능
+                .anyRequest().authenticated()// 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 
 
                 .and()
@@ -87,6 +88,7 @@ public class SecurityConfig {
         // 따라서, LogoutFilter 이후에 우리가 만든 필터 동작하도록 설정
         // 순서 : LogoutFilter -> JwtAuthenticationProcessingFilter -> CustomJsonUsernamePasswordAuthenticationFilter
         http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
+
         http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -109,8 +111,11 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        //DaoAuthenticationProvider를 사용하여 AuthenticationManager를 생성하여 반환
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(loginService);
+        //Provider에서 이전에 설정한 PasswordEncoder를 설정하고,
+        //이전에 만들었던 UserDetails 유저를 반환하는 LoginService를 설정한 후 반환
         return new ProviderManager(provider);
     }
 
@@ -119,6 +124,7 @@ public class SecurityConfig {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
+
 
         return new LoginSuccessHandler(jwtService, memberRepository);
     }

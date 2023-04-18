@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member")
@@ -24,8 +25,6 @@ public class Member extends BaseTimeEntity {
     @Column(name = "email")
     private String email;
     private String password;
-    private String name;//이름
-    private String phone;//전화번호
     private String nickname;//닉네임
 
     @Enumerated(EnumType.STRING)

@@ -30,8 +30,6 @@ public class MemberService {
                 .email(memberSignUpDto.getEmail())
                 .password(passwordEncoder.encode(memberSignUpDto.getPassword()))
                 .nickname(memberSignUpDto.getNickname())
-                .name(memberSignUpDto.getName())
-                .phone(memberSignUpDto.getPhone())
                 .role(Role.USER)
                 .status(true)
 

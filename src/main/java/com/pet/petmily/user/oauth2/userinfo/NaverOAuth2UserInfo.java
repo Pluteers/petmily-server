@@ -2,7 +2,11 @@ package com.pet.petmily.user.oauth2.userinfo;
 
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
+@Slf4j
+
 
 public class NaverOAuth2UserInfo extends OAuth2UserInfo {
 
@@ -28,8 +32,20 @@ public class NaverOAuth2UserInfo extends OAuth2UserInfo {
             return null;
         }
 
-        return (String) response.get("nickname");
+        return (String) response.get("name");
+    }
+    @Override
+    public String getEmail(){
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+        if (response == null) {
+            return null;
+        }
+
+        return (String) response.get("email");
     }
 
 
-}
+
+
+    }

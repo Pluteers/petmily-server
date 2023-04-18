@@ -23,7 +23,7 @@ import java.util.UUID;
 public class OAuthAttributes {
 
     private String nameAttributeKey; // OAuth2 로그인 진행 시 키가 되는 필드 값, PK와 같은 의미
-    private OAuth2UserInfo oauth2UserInfo; // 소셜 타입별 로그인 유저 정보(닉네임, 이메일, 프로필 사진 등등)
+    private OAuth2UserInfo oauth2UserInfo; // 소셜 타입별 로그인 유저 정보(닉네임, 이메일등)
 
     @Builder
     public OAuthAttributes(String nameAttributeKey, OAuth2UserInfo oauth2UserInfo) {
@@ -68,15 +68,17 @@ public class OAuthAttributes {
      * of메소드로 OAuthAttributes 객체가 생성되어, 유저 정보들이 담긴 OAuth2UserInfo가 소셜 타입별로 주입된 상태
      * OAuth2UserInfo에서 socialId(식별값), nickname, imageUrl을 가져와서 build
      * email에는 UUID로 중복 없는 랜덤 값 생성
-     * role은 GUEST로 설정
      */
     public Member toEntity(SocialType socialType, OAuth2UserInfo oauth2UserInfo) {
         return Member.builder()
+                //여기서 소셜에서 받아오는 값들과 자체 설정한 값들
+                //소셜타입,소셜id(구분자),이메일,닉네임,역할
                 .socialType(socialType)
                 .socialId(oauth2UserInfo.getId())
-                .email(UUID.randomUUID() + "@socialUser.com")
+                .email( UUID.randomUUID()+ "@petmily.com")
                 .nickname(oauth2UserInfo.getNickname())
-                .role(Role.GUEST)
+                .role(Role.USER)
+                .status(true)
                 .build();
     }
 }
