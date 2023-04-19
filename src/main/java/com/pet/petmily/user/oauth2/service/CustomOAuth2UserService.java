@@ -8,6 +8,7 @@ import com.pet.petmily.user.repository.MemberRepository;
 
 import com.pet.petmily.user.oauth2.CustomOAuth2User;
 import com.pet.petmily.user.oauth2.OAuthAttributes;
+import com.pet.petmily.user.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,7 +30,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     private final MemberRepository memberRepository;
 
     private static final String NAVER = "naver";
-    //private static final String KAKAO = "kakao";
+    private static final String KAKAO = "kakao";
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -73,6 +74,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         if(NAVER.equals(registrationId)) {
             return SocialType.NAVER;
         }
+        else if(KAKAO.equals(registrationId)) {
+            return SocialType.KAKAO;
+        }
+
         else
             return SocialType.GOOGLE;
     }
@@ -97,6 +102,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      */
     private Member saveUser(OAuthAttributes attributes, SocialType socialType) {
         Member createdUser = attributes.toEntity(socialType, attributes.getOauth2UserInfo());
+
         log.info("@ "+attributes.getOauth2UserInfo().toString());
 
 
