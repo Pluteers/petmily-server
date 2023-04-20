@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pet.petmily.user.repository.MemberRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -17,6 +18,8 @@ import javax.transaction.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+
+
 
     public void signUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
@@ -39,4 +42,11 @@ public class MemberService {
     }
 
 
+    public String getNickName(String email) {
+        return memberRepository.findByEmail(email).get().getNickname();
+    }
+
+    public LocalDateTime getCreateDate(String email) {
+        return memberRepository.findByEmail(email).get().getCreateDate();
+    }
 }
