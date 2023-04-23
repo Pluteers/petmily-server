@@ -1,9 +1,12 @@
 package com.pet.petmily.user.service;
 
 import com.pet.petmily.user.dto.MemberSignUpDto;
+import com.pet.petmily.user.dto.MemberUpdateDTO;
 import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.entity.Role;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.pet.petmily.user.repository.MemberRepository;
@@ -14,6 +17,7 @@ import java.time.LocalDateTime;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -49,4 +53,15 @@ public class MemberService {
     public LocalDateTime getCreateDate(String email) {
         return memberRepository.findByEmail(email).get().getCreateDate();
     }
+    public Long getId(String email) {
+        return memberRepository.findByEmail(email).get().getId();
+    }
+    @Transactional
+    public void updateMember(String email,MemberUpdateDTO memberUpdateDTO) throws Exception{
+        Member member=memberRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("해당 이메일이 존재하지 않습니다."));
+        member.updateMember(memberUpdateDTO);
+
+
+    }
+
 }

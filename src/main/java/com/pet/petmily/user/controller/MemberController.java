@@ -2,6 +2,7 @@ package com.pet.petmily.user.controller;
 
 import com.pet.petmily.user.dto.MemberLoginDTO;
 import com.pet.petmily.user.dto.MemberSignUpDto;
+import com.pet.petmily.user.dto.MemberUpdateDTO;
 import com.pet.petmily.user.entity.BaseTimeEntity;
 import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.handler.LoginSuccessHandler;
@@ -52,6 +53,15 @@ public class MemberController extends BaseTimeEntity {
 
         return memberLoginDTO;
 
+    }
+    @PatchMapping("/user/update")
+    //유저 정보 업데이트(수정)
+    public String update(Principal principal,@RequestBody MemberUpdateDTO memberUpdateDTO) throws Exception {
+        log.info("업데이트 요청");
+        String email=principal.getName();
+        memberService.updateMember(email,memberUpdateDTO);
+
+        return "업데이트 성공";
     }
     
 
