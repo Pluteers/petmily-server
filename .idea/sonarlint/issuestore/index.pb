@@ -37,15 +37,3 @@ j
 :src/main/java/com/pet/petmily/user/dto/MemberLoginDTO.java,2\e\2ee3ae710326e74d86dabf521d2ba14d18b250b5
 e
 5src/main/java/com/pet/petmily/user/entity/Member.java,f\1\f1d4eb98942495766a60d479ad6ec619d5680e0f
-s
-Csrc/main/java/com/pet/petmily/user/handler/LoginSuccessHandler.java,3\0\300c6fd3e29b1ce476161b74c2746089e32ef96e
-s
-Csrc/main/java/com/pet/petmily/user/handler/LoginFailureHandler.java,2\2\2295bb5ca230dc87dd0cb47c4225ede5c97f8b1d
-s
-Csrc/main/java/com/pet/petmily/user/repository/MemberRepository.java,c\e\ce31a3bf7d2fc85abffb91f256bd327e7c79f699
-m
-=src/main/java/com/pet/petmily/user/config/SecurityConfig.java,f\b\fbe5d14d6e33f3f5dc631ee9ff87e4545c38686b
-s
-Csrc/main/java/com/pet/petmily/user/controller/MemberController.java,d\a\da365fa07cdc51f5f4e83ed607c97ac43aa7c450
-€
-Psrc/main/java/com/pet/petmily/user/filter/JwtAuthenticationProcessingFilter.java,0\b\0bf0781a6ebbb0d036acd2ede922267b4802188f
