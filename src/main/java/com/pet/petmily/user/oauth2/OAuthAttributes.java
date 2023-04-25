@@ -7,10 +7,13 @@ import com.pet.petmily.user.entity.SocialType;
 
 import com.pet.petmily.user.oauth2.userinfo.GoogleOAuth2UserInfo;
 
+import com.pet.petmily.user.oauth2.userinfo.KakaoOAuth2UserInfo;
 import com.pet.petmily.user.oauth2.userinfo.NaverOAuth2UserInfo;
 import com.pet.petmily.user.oauth2.userinfo.OAuth2UserInfo;
+import com.pet.petmily.user.util.PasswordUtil;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +47,9 @@ public class OAuthAttributes {
         if (socialType == SocialType.NAVER) {
             return ofNaver(userNameAttributeName, attributes);
         }
+        if (socialType == SocialType.KAKAO) {
+            return ofKakao(userNameAttributeName, attributes);
+        }
 
         return ofGoogle(userNameAttributeName, attributes);
     }
@@ -63,6 +69,12 @@ public class OAuthAttributes {
                 .oauth2UserInfo(new NaverOAuth2UserInfo(attributes))
                 .build();
     }
+    private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
+        return OAuthAttributes.builder()
+                .nameAttributeKey(userNameAttributeName)
+                .oauth2UserInfo(new KakaoOAuth2UserInfo(attributes))
+                .build();
+    }
 
     /**
      * of메소드로 OAuthAttributes 객체가 생성되어, 유저 정보들이 담긴 OAuth2UserInfo가 소셜 타입별로 주입된 상태
@@ -77,6 +89,7 @@ public class OAuthAttributes {
                 .socialId(oauth2UserInfo.getId())
                 .email( UUID.randomUUID()+ "@petmily.com")
                 .nickname(oauth2UserInfo.getNickname())
+                .password(PasswordUtil.generateRandomPassword())
                 .role(Role.USER)
                 .status(true)
                 .build();

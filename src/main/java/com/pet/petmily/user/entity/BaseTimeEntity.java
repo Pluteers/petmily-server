@@ -1,5 +1,6 @@
 package com.pet.petmily.user.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-@Getter
+@Data
 public abstract class BaseTimeEntity {
 
     @CreatedDate

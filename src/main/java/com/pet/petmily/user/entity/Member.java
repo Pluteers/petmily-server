@@ -1,12 +1,12 @@
 package com.pet.petmily.user.entity;
 
+import com.pet.petmily.user.dto.MemberUpdateDTO;
 import lombok.*;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-
-
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -52,6 +52,36 @@ public class Member extends BaseTimeEntity {
     public void updateRefreshToken(String updateRefreshToken) {
 
         this.refreshToken = updateRefreshToken;
+    }
+    @Builder
+    public Member(String email, String password, String nickname, Role role, SocialType socialType, String socialId, String refreshToken, boolean status) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.role = role;
+        this.socialType = socialType;
+        this.socialId = socialId;
+        this.refreshToken = refreshToken;
+        this.status = status;
+    }
+    public void updateMember(MemberUpdateDTO memberUpdateDTO) {
+        if(memberUpdateDTO.getEmail()!= null) {
+            this.email = memberUpdateDTO.getEmail();
+        }
+        if(memberUpdateDTO.getNickname()!=null){
+            this.nickname = memberUpdateDTO.getNickname();
+        }
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.role = role;
+        this.socialType = socialType;
+        this.socialId = socialId;
+        this.refreshToken = refreshToken;
+        this.status = status;
+
+
+
     }
 
 }
