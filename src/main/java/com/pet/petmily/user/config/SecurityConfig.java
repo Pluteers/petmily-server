@@ -75,6 +75,7 @@ public class SecurityConfig {
                 .antMatchers("/sign-up").permitAll() // sign-up 페이지는 모두 접근 가능
                 .antMatchers("/swagger-ui/**").permitAll() // swagger로 시작하는 경로는 모두 접근 가능
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
+                .antMatchers("/v2/api-docs").permitAll() // swagger
                 .anyRequest().authenticated()// 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 
 

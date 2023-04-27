@@ -64,6 +64,9 @@ public class MemberController extends BaseTimeEntity {
         return "업데이트 성공";
     }
 
+
+
+
     
 
 
