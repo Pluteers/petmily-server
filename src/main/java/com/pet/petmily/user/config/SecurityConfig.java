@@ -51,6 +51,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .formLogin().disable() // FormLogin 사용 X
                 .httpBasic().disable() // httpBasic 사용 X
@@ -76,6 +77,8 @@ public class SecurityConfig {
                 .antMatchers("/swagger-ui/**").permitAll() // swagger로 시작하는 경로는 모두 접근 가능
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .antMatchers("/v2/api-docs").permitAll() // swagger
+
+
                 .anyRequest().authenticated()// 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 
 
@@ -96,6 +99,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

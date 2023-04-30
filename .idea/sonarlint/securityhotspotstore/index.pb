@@ -37,3 +37,13 @@ s
 Csrc/main/java/com/pet/petmily/user/handler/LoginSuccessHandler.java,3\0\300c6fd3e29b1ce476161b74c2746089e32ef96e
 s
 Csrc/main/java/com/pet/petmily/user/handler/LoginFailureHandler.java,2\2\2295bb5ca230dc87dd0cb47c4225ede5c97f8b1d
+s
+Csrc/main/java/com/pet/petmily/user/repository/MemberRepository.java,c\e\ce31a3bf7d2fc85abffb91f256bd327e7c79f699
+m
+=src/main/java/com/pet/petmily/user/entity/BaseTimeEntity.java,e\5\e5a7f018c8997c3676a86db52a9081ff02229728
+e
+5src/main/java/com/pet/petmily/user/entity/Member.java,f\1\f1d4eb98942495766a60d479ad6ec619d5680e0f
+j
+:src/main/java/com/pet/petmily/user/dto/MemberLoginDTO.java,2\e\2ee3ae710326e74d86dabf521d2ba14d18b250b5
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
