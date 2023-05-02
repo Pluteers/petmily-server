@@ -31,6 +31,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(("com.pet.petmily")))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(io.swagger.annotations.ApiOperation.class))
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 
 

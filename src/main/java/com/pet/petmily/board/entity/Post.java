@@ -34,8 +34,12 @@ public class Post extends BaseTimeEntity {
     private Member member;
 
     @JoinColumn(name = "category_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @JoinColumn(name ="channel_id")
+    @ManyToOne
+    private Channel channel;
 
 
 }

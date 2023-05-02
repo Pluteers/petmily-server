@@ -9,6 +9,7 @@ import com.pet.petmily.user.handler.LoginSuccessHandler;
 import com.pet.petmily.user.service.LoginService;
 import com.pet.petmily.user.service.MemberService;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +37,13 @@ public class MemberController extends BaseTimeEntity {
 
 
 
+    @ApiOperation(value = "회원가입", notes = "회원가입")
     @PostMapping("/sign-up")
     public String signUp(@RequestBody MemberSignUpDto memberSignUpDto) throws Exception {
         memberService.signUp(memberSignUpDto);
         return "회원가입 성공";
     }
+    @ApiOperation(value = "유저 정보", notes = "유저 정보")
     @GetMapping("/user/info")
     @ResponseBody
     public Object userInfo(Principal principal,MemberLoginDTO memberLoginDTO){
@@ -54,11 +57,13 @@ public class MemberController extends BaseTimeEntity {
         return memberLoginDTO;
 
     }
+    @ApiOperation(value = "유저 정보 업데이트", notes = "유저 정보 업데이트")
     @PatchMapping("/user/update")
     //유저 정보 업데이트(수정)
     public String update(Principal principal,@RequestBody MemberUpdateDTO memberUpdateDTO) throws Exception {
         log.info("업데이트 요청");
         String email=principal.getName();
+
         memberService.updateMember(email,memberUpdateDTO);
 
         return "업데이트 성공";
@@ -79,6 +84,7 @@ public class MemberController extends BaseTimeEntity {
 
 
 
+    @ApiOperation(value = "jwt-test", notes = "jwt-test")
     @GetMapping("/jwt-test")
     public String jwtTest() {
 

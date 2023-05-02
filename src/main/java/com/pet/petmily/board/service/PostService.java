@@ -2,10 +2,12 @@ package com.pet.petmily.board.service;
 
 import com.pet.petmily.board.dto.PostDTO;
 import com.pet.petmily.board.entity.Category;
+import com.pet.petmily.board.entity.Channel;
 import com.pet.petmily.board.entity.Post;
+import com.pet.petmily.board.repository.CategoryRepository;
+import com.pet.petmily.board.repository.ChannelRepository;
 import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.user.entity.Member;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CategoryRepository categoryRepository;
+    private final ChannelRepository channelRepository;
 
     //게시판 전체 조회
     @Transactional(readOnly = true)
@@ -41,14 +45,21 @@ public class PostService {
     }
     //게시글 작성
     @Transactional
-    public PostDTO writePost(PostDTO postDto, Member member, Category category){
+    public PostDTO writePost(PostDTO postDto, Member member){
         Post post =new Post();
+        Category category=categoryRepository.findById(postDto.getCategoryId())
+                .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+postDto.getCategoryId()));
+        Channel channel=channelRepository.findById(postDto.getChannelId())
+                .orElseThrow(()->new IllegalArgumentException("해당 채널이 없습니다. id="+postDto.getChannelId()));
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setMember(member);
         post.setImagePath(postDto.getImagePath());
         post.setStatus(true);
         post.setCategory(category);
+        post.setChannel(channel);
+        post.setLikePost(0);
+        post.setHit(1);
         postRepository.save(post);
         return postDto.toDto(post);
     }
