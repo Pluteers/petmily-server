@@ -1,5 +1,6 @@
 package com.pet.petmily.board.controller;
 
+import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
 import com.pet.petmily.board.entity.Category;
 import com.pet.petmily.board.repository.PostRepository;
@@ -43,7 +44,18 @@ public class PostController {
         return new Response("조회 성공","개별 게시물 return",postService.getPost(id));
     }
 
-
+    @ApiOperation(value = "채널 생성" , notes = "채널 생성")
+    @PostMapping("/post/channel")
+    public Response createChannel(@RequestBody ChannelDTO channelDTO){
+        log.info("채널 생성");
+        return new Response("채널 생성 성공","채널 생성 성공",postService.createChannel(channelDTO));
+    }
+    @ApiOperation(value = "채널 조회" , notes = "채널 조회")
+    @GetMapping("/post/channel")
+    public Response getChannel(){
+        log.info("채널 조회");
+        return new Response("채널 조회 성공","채널 조회 성공",postService.getChannel());
+    }
     @ApiOperation(value = "게시판 작성", notes = "게시판 작성")
     @PostMapping("/post/write")
     public Response writePost(@RequestBody PostDTO postDto, Authentication authentication) {

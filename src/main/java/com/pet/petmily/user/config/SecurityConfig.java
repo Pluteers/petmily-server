@@ -74,9 +74,7 @@ public class SecurityConfig {
                 .antMatchers("/user/**").hasAnyRole("USER","ADMIN") // user으로 시작하는 경로는 USER,ADMIN 권한만 접근 가능
                 .antMatchers("/index", "/login").permitAll() // index, login 페이지는 모두 접근 가능
                 .antMatchers("/sign-up").permitAll() // sign-up 페이지는 모두 접근 가능
-                .antMatchers("/swagger-ui/**").permitAll() // swagger로 시작하는 경로는 모두 접근 가능
-                .antMatchers("/swagger-resources/**").permitAll() // swagger
-                .antMatchers("/v2/api-docs").permitAll() // swagger
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
 
 
                 .anyRequest().authenticated()// 위의 경로 이외에는 모두 인증된 사용자만 접근 가능

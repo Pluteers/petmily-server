@@ -1,5 +1,6 @@
 package com.pet.petmily.board.service;
 
+import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
 import com.pet.petmily.board.entity.Category;
 import com.pet.petmily.board.entity.Channel;
@@ -44,6 +45,21 @@ public class PostService {
         return PostDTO.toDto(post);
     }
     //채널 생성
+    @Transactional
+    public ChannelDTO createChannel(ChannelDTO channelDto){
+        Channel channel=new Channel();
+        channel.setChannelName(channelDto.getChannelName());
+        channel.setCategory(categoryRepository.findById(channelDto.getCategoryId())
+                .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+channelDto.getCategoryId())));
+        channelRepository.save(channel);
+        return ChannelDTO.toDto(channel);
+    }
+    public List<ChannelDTO> getChannel(){
+        List<Channel> channels=channelRepository.findAll();
+        List<ChannelDTO> channelDtos= new ArrayList<>();
+        channels.forEach(s->channelDtos.add(ChannelDTO.toDto(s)));
+        return channelDtos;
+    }
 
 
     //게시글 작성
