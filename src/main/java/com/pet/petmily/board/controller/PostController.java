@@ -42,11 +42,14 @@ public class PostController {
         log.info("게시판 개별 조회");
         return new Response("조회 성공","개별 게시물 return",postService.getPost(id));
     }
+
+
     @ApiOperation(value = "게시판 작성", notes = "게시판 작성")
     @PostMapping("/post/write")
     public Response writePost(@RequestBody PostDTO postDto, Authentication authentication) {
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         Member member= Member.builder()
+                        .id(memberRepository.findByEmail(userDetails.getUsername()).get().getId())
                         .email(userDetails.getUsername())
                         .nickname(memberRepository.findByEmail(userDetails.getUsername()).get().getNickname())
 

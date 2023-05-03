@@ -43,14 +43,20 @@ public class PostService {
         PostDTO postDto=PostDTO.toDto(post);
         return PostDTO.toDto(post);
     }
+    //채널 생성
+
+
     //게시글 작성
     @Transactional
     public PostDTO writePost(PostDTO postDto, Member member){
         Post post =new Post();
         Category category=categoryRepository.findById(postDto.getCategoryId())
                 .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+postDto.getCategoryId()));
-        Channel channel=channelRepository.findById(postDto.getChannelId())
-                .orElseThrow(()->new IllegalArgumentException("해당 채널이 없습니다. id="+postDto.getChannelId()));
+        Channel channel=new Channel();
+        channel.setChannelId(postDto.getChannelId());
+        channel.setChannelName(postDto.getChannelName());
+        channel.setCategory(category);
+        channelRepository.save(channel);
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setMember(member);

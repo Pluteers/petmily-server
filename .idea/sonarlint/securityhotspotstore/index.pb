@@ -11,10 +11,6 @@ Fsrc/main/java/com/pet/petmily/user/oauth2/userinfo/OAuth2UserInfo.java,1\0\100
 Ksrc/main/java/com/pet/petmily/user/oauth2/userinfo/NaverOAuth2UserInfo.java,0\a\0acac3c379f18ae905c3a103ea0950e187045046
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-€
-Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginFailureHandler.java,d\e\de9e87b5d10f4f33191d418b95cef0431903b07c
-€
-Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginSuccessHandler.java,1\7\17f92b465e5fd8e319c3a030c56b64c9a5cfa2f6
 s
 Csrc/main/java/com/pet/petmily/user/handler/LoginFailureHandler.java,2\2\2295bb5ca230dc87dd0cb47c4225ede5c97f8b1d
 m
@@ -59,3 +55,9 @@ j
 :src/main/java/com/pet/petmily/user/dto/MemberLoginDTO.java,2\e\2ee3ae710326e74d86dabf521d2ba14d18b250b5
 k
 ;src/main/java/com/pet/petmily/user/dto/MemberSignUpDto.java,9\7\970455ee8d9d761c108f9598d124192ae456dc84
+v
+Fsrc/main/java/com/pet/petmily/board/repository/CategoryRepository.java,c\1\c14cc6e5fcfb8f71c360ce5546427ccde051231a
+u
+Esrc/main/java/com/pet/petmily/board/repository/ChannelRepository.java,7\3\73004ab5b7c6d228a9100c42a46933b61c49a580
+r
+Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
