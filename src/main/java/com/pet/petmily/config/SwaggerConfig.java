@@ -37,7 +37,7 @@ public class SwaggerConfig {
                 .securityContexts(List.of(this.securityContext())) // SecurityContext 설정
                 .securitySchemes(List.of(this.apiKey())) // ApiKey 설정
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(("com.pet.petmily")))
+
                 .apis(RequestHandlerSelectors.withMethodAnnotation(io.swagger.annotations.ApiOperation.class))
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 

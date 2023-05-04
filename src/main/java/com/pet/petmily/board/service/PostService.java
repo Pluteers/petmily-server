@@ -44,41 +44,20 @@ public class PostService {
         PostDTO postDto=PostDTO.toDto(post);
         return PostDTO.toDto(post);
     }
-    //채널 생성
-    @Transactional
-    public ChannelDTO createChannel(ChannelDTO channelDto){
-        Channel channel=new Channel();
-        channel.setChannelName(channelDto.getChannelName());
-        channel.setCategory(categoryRepository.findById(channelDto.getCategoryId())
-                .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+channelDto.getCategoryId())));
-        channelRepository.save(channel);
-        return ChannelDTO.toDto(channel);
-    }
-    public List<ChannelDTO> getChannel(){
-        List<Channel> channels=channelRepository.findAll();
-        List<ChannelDTO> channelDtos= new ArrayList<>();
-        channels.forEach(s->channelDtos.add(ChannelDTO.toDto(s)));
-        return channelDtos;
-    }
 
 
     //게시글 작성
     @Transactional
-    public PostDTO writePost(PostDTO postDto, Member member){
+    public PostDTO writePost(PostDTO postDto, Member member,ChannelDTO channelDTO){
         Post post =new Post();
-        Category category=categoryRepository.findById(postDto.getCategoryId())
-                .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+postDto.getCategoryId()));
-        Channel channel=new Channel();
-        channel.setChannelId(postDto.getChannelId());
-        channel.setChannelName(postDto.getChannelName());
-        channel.setCategory(category);
-        channelRepository.save(channel);
+        Channel channel=channelRepository.findById(channelDTO.getChannelId())
+                .orElseThrow(()->new IllegalArgumentException("해당 채널이 없습니다. id="+channelDTO.getChannelId()));
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setMember(member);
         post.setImagePath(postDto.getImagePath());
         post.setStatus(true);
-        post.setCategory(category);
+
         post.setChannel(channel);
         post.setLikePost(0);
         post.setHit(1);

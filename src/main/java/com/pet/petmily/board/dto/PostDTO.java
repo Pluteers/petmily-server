@@ -23,8 +23,7 @@ public class PostDTO extends BaseTimeEntity {
     private long hit;
     private String imagePath;
     private String nickname;
-    private String categoryName;
-    private Long categoryId;
+
     private Long channelId;
     private String channelName;
     private LocalDateTime createDate;
@@ -34,15 +33,14 @@ public class PostDTO extends BaseTimeEntity {
         log.info("postDTO todto메소드 호출");
         return new PostDTO(
                 
-                post.getId(),
+                post.getPostId(),
                 post.getTitle(),
                 post.getContent(),
                 post.getLikePost(),
                 post.getHit(),
                 post.getImagePath(),
                 post.getMember().getNickname(),
-                post.getCategory().getCategoryName(),
-                post.getCategory().getCategoryId(),
+
                 post.getChannel().getChannelId(),
                 post.getChannel().getChannelName(),
                 post.getCreateDate(),
