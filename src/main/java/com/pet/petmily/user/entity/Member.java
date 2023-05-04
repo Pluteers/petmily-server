@@ -6,7 +6,7 @@ import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 
 @Entity
@@ -83,5 +83,6 @@ public class Member extends BaseTimeEntity {
 
 
     }
+
 
 }
