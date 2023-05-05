@@ -2,23 +2,16 @@ package com.pet.petmily.board.controller;
 
 import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
-import com.pet.petmily.board.entity.Category;
-import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.board.response.Response;
 import com.pet.petmily.board.service.ChannelService;
-import com.pet.petmily.user.auth.PrincipalDetails;
 import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.repository.MemberRepository;
-import com.pet.petmily.user.service.LoginService;
-import com.pet.petmily.user.service.MemberService;
+
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import com.pet.petmily.board.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +32,7 @@ public class PostController {
         return new Response("조회 성공","전체 게시물 return",postService.getPost());
     }
 
-    @ApiOperation(value = "게시판 개별 조회", notes = "게시판 개별 조회")
+    @ApiOperation(value = "게시판 개별 조회", notes = "해당 postId를 가지는 게시물 조회")
     @GetMapping("/post/{id}")
     public Response getPost(@PathVariable("id") Long id) {
         log.info("게시판 개별 조회");
@@ -58,7 +51,7 @@ public class PostController {
         log.info("채널 조회");
         return new Response("채널 조회 성공","채널 조회 성공",channelService.getChannel());
     }
-    @ApiOperation(value = "게시판 작성", notes = "게시판 작성")
+    @ApiOperation(value = "게시판 작성", notes = "해당 channelId를 가진 채널에 게시물 작성")
     @PostMapping("/post/channel/{id}/write")
     public Response writePost(@PathVariable("id") Long channelId,@RequestBody PostDTO postDto, Authentication authentication) {
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
@@ -66,8 +59,6 @@ public class PostController {
                         .id(memberRepository.findByEmail(userDetails.getUsername()).get().getId())
                         .email(userDetails.getUsername())
                         .nickname(memberRepository.findByEmail(userDetails.getUsername()).get().getNickname())
-
-
         .build();
 
         ChannelDTO channelDTO=channelService.getChannelById(channelId);
