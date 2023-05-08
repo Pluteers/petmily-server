@@ -40,10 +40,13 @@ public class PostService {
     }
     //개별 게시글 조회
     @Transactional(readOnly = true)
-    public PostDTO getPost(Long id,Long channelId){
-        Post post=postRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
-        PostDTO postDto=PostDTO.toDto(post);
+    public PostDTO getPost(Long channelId,Long id){
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다=" + id));
+        if(post.getChannel().getChannelId()!=channelId){
+            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
         return PostDTO.toDto(post);
     }
 

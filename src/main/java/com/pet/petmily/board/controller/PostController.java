@@ -34,9 +34,9 @@ public class PostController {
 
     @ApiOperation(value = "게시판 개별 조회", notes = "해당 postId를 가지는 게시물 조회")
     @GetMapping("/channel/{channelId}/post/{id}")
-    public Response getPost(@PathVariable("id") Long id,@PathVariable("channelId") Long channelId) {
+    public Response getPost(@PathVariable("channelId") Long channelId,@PathVariable("id") Long id) {
         log.info("게시판 개별 조회");
-        return new Response("조회 성공","채널별 개별 게시물 return",postService.getPost(id,channelId));
+        return new Response("조회 성공","채널별 개별 게시물 return",postService.getPost(channelId,id));
     }
 
     @ApiOperation(value = "채널 생성" , notes = "채널 생성")
