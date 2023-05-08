@@ -29,16 +29,18 @@ public class PostService {
 
     //게시판 전체 조회
     @Transactional(readOnly = true)
-    public List<PostDTO> getPost(){
-        List<Post> posts=postRepository.findAll();
-        List<PostDTO> postDtos= new ArrayList<>();
-        posts.forEach(s->postDtos.add(PostDTO.toDto(s)));
-        return postDtos;
+    public List<PostDTO> getAllPost(Long channelId){
+    List<Post> posts=postRepository.findAllByChannel_ChannelId(channelId);
+    List<PostDTO> postDtos=new ArrayList<>();
+    posts.forEach(s->postDtos.add(PostDTO.toDto(s)));
+
+
+    return postDtos;
 
     }
     //개별 게시글 조회
     @Transactional(readOnly = true)
-    public PostDTO getPost(Long id){
+    public PostDTO getPost(Long id,Long channelId){
         Post post=postRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         PostDTO postDto=PostDTO.toDto(post);

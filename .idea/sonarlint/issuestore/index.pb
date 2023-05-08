@@ -17,10 +17,6 @@ s
 Csrc/main/java/com/pet/petmily/user/repository/MemberRepository.java,c\e\ce31a3bf7d2fc85abffb91f256bd327e7c79f699
 s
 Csrc/main/java/com/pet/petmily/user/handler/LoginSuccessHandler.java,3\0\300c6fd3e29b1ce476161b74c2746089e32ef96e
-ç
-]src/main/java/com/pet/petmily/user/filter/CustomJsonUsernamePasswordAuthenticationFilter.java,8\7\8714fd3b6b5a5f7d223985198037a62927977076
-Ä
-Psrc/main/java/com/pet/petmily/user/filter/JwtAuthenticationProcessingFilter.java,0\b\0bf0781a6ebbb0d036acd2ede922267b4802188f
 j
 :src/main/java/com/pet/petmily/user/service/JwtService.java,e\8\e8bb2e7da02b90c74d99189b943d266c948440d5
 i
@@ -41,13 +37,7 @@ Fsrc/main/java/com/pet/petmily/board/repository/CategoryRepository.java,c\1\c14
 Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginFailureHandler.java,d\e\de9e87b5d10f4f33191d418b95cef0431903b07c
 Ä
 Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginSuccessHandler.java,1\7\17f92b465e5fd8e319c3a030c56b64c9a5cfa2f6
-r
-Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
 u
 Esrc/main/java/com/pet/petmily/board/repository/ChannelRepository.java,7\3\73004ab5b7c6d228a9100c42a46933b61c49a580
 e
 5src/main/java/com/pet/petmily/user/entity/Member.java,f\1\f1d4eb98942495766a60d479ad6ec619d5680e0f
-o
-?src/main/java/com/pet/petmily/board/service/ChannelService.java,6\c\6c70ab9b1fda35ba84438dcf376caeebd089aa93
-l
-<src/main/java/com/pet/petmily/board/service/PostService.java,e\b\eb34048971ce4b0d8e127988e33b16cf0161ba70
