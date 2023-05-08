@@ -19,7 +19,7 @@ spring:
 
   config:
     activate:
-      on-profile: "default"
+      on-profile: "local"
 
   mvc:
     pathmatch:

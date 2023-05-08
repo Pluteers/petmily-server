@@ -2,8 +2,8 @@ spring:
 
   profiles:
     group:
-      "default": "default, jwt, oauth"
-    active: default
+      "local": "local, jwt, oauth"
+    active: local
 ---
 spring:
 
@@ -17,8 +17,9 @@ spring:
     username: impjs17
     password: test123!
 
+  config:
     activate:
-      on-profile: "default"
+      on-profile: "local"
 
   mvc:
     pathmatch:
