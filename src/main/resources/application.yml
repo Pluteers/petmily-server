@@ -7,15 +7,19 @@ spring:
 ---
 spring:
 
+
+
+
   datasource:
     #데이터 소스 설정
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/pet?useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/pet?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Seoul
     username: impjs17
     password: test123!
+
   config:
     activate:
-      on-profile: "local"
+      on-profile: "default"
 
   mvc:
     pathmatch:

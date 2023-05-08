@@ -31,6 +31,7 @@ dependencies {
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
     implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.1'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.43'
+
     //Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
