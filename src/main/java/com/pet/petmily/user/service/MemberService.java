@@ -25,9 +25,14 @@ public class MemberService {
 
 
 
-    public void signUp(MemberSignUpDto memberSignUpDto) throws Exception{
+
+    public String signUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
         if(memberRepository.findByEmail(memberSignUpDto.getEmail()).isPresent()){
+            if(memberRepository.findByEmail(memberSignUpDto.getEmail()).get().getSocialType()!=null){
+                return "redirect:/login";
+
+            }
             throw new Exception("이미 존재하는 이메일입니다.");
         }
         if(memberRepository.findByNickname(memberSignUpDto.getNickname()).isPresent()){
@@ -39,10 +44,16 @@ public class MemberService {
                 .nickname(memberSignUpDto.getNickname())
                 .role(Role.USER)
                 .status(true)
+                .socialType(memberSignUpDto.getSocialType())
+                .socialId(memberSignUpDto.getSocialId())
+
+
+
 
                 .build();
         //member.passwordEncode(passwordEncoder);
         memberRepository.save(member);
+        return null;
     }
 
 

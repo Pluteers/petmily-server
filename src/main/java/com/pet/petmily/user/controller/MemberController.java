@@ -13,18 +13,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
+
 
 @RestController
 @Slf4j
@@ -41,6 +36,7 @@ public class MemberController extends BaseTimeEntity {
     @PostMapping("/sign-up")
     public String signUp(@RequestBody MemberSignUpDto memberSignUpDto) throws Exception {
         memberService.signUp(memberSignUpDto);
+
         return "회원가입 성공";
     }
     @ApiOperation(value = "유저 정보", notes = "유저 정보")
@@ -57,6 +53,7 @@ public class MemberController extends BaseTimeEntity {
         return memberLoginDTO;
 
     }
+
     @ApiOperation(value = "유저 정보 업데이트", notes = "유저 정보 업데이트")
     @PatchMapping("/user/update")
     //유저 정보 업데이트(수정)

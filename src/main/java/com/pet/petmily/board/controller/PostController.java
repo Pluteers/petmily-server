@@ -2,6 +2,7 @@ package com.pet.petmily.board.controller;
 
 import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
+import com.pet.petmily.board.response.ChannelResponse;
 import com.pet.petmily.board.response.Response;
 import com.pet.petmily.board.service.ChannelService;
 import com.pet.petmily.user.entity.Member;
@@ -27,9 +28,9 @@ public class PostController {
 
     @ApiOperation(value = "게시판 전체 조회", notes = "게시판 전체 조회")
     @GetMapping("/channel/{channelId}/post")
-    public Response getAllPost(@PathVariable("channelId") Long channelId) {
+    public ChannelResponse getAllPost(@PathVariable("channelId") Long channelId) {
         log.info("게시판 전체 조회(채널별)");
-        return new Response("조회 성공","채널별 전체 게시물 return",postService.getAllPost(channelId));
+        return new ChannelResponse("조회 성공","채널별 전체 게시물 return",channelService.getChannelById(channelId).getChannelName(),postService.getAllPost(channelId));
     }
 
     @ApiOperation(value = "게시판 개별 조회", notes = "해당 postId를 가지는 게시물 조회")
