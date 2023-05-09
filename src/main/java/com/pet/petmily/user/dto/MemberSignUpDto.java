@@ -6,12 +6,17 @@ import com.pet.petmily.user.entity.SocialType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Slf4j
 public class MemberSignUpDto extends BaseTimeEntity{
+
+
+
 
     private String email;
     private String password;
@@ -19,6 +24,7 @@ public class MemberSignUpDto extends BaseTimeEntity{
     private boolean status;
     private SocialType socialType;
     private String socialId;
+
 
 
 
