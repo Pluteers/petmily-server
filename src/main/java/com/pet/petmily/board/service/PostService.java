@@ -79,7 +79,7 @@ public class PostService {
             return post.getMember().getId()==memberId;
             }
         // Handle the case when the post is not found
-        throw new IllegalArgumentException("Post not found. postId=" + postId);
+        throw new IllegalArgumentException("Post not found.  postId=" + postId);
 
 
     }
@@ -101,5 +101,20 @@ public class PostService {
             throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
         }
 
+    }
+
+    public Object deletePost(Long channelId, Long id) {
+        Optional<Post>postOptional=postRepository.findById(id);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            if(post.getChannel().getChannelId()!=channelId){
+                throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            }
+            postRepository.delete(post);
+            return "삭제되었습니다.";
+        }
+        else{
+            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
     }
 }

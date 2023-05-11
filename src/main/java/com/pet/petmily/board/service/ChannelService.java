@@ -48,6 +48,7 @@ public class ChannelService {
         return ChannelDTO.toDto(channel);
     }
 
+    //채널 삭제
     public Object deleteChannel(Long channelId, long memberId) {
         Optional<Channel> channelOptional = channelRepository.findById(channelId);
         if (channelOptional.isPresent()) {

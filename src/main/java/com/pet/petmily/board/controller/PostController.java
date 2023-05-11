@@ -139,7 +139,7 @@ public class PostController {
             }
         }
         else {
-            // Handle the case when member is not found
+            // 존재하지 않는 유저
             return new Response(
                     "수정 에러",
                     "유저가 존재하지 않습니다",
@@ -150,7 +150,35 @@ public class PostController {
 
 
     }
+    @ApiOperation(value = "게시판 삭제", notes = "해당 postId를 가진 게시물 삭제")
+    @DeleteMapping("/channel/{channelId}/post/delete/{id}")
+    public Response deletePost(@PathVariable("channelId") Long channelId,@PathVariable("id") Long id,Authentication authentication) {
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+        if(memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            boolean isWriter = postService.isWriter(id, member.getId());
+            if(isWriter){
+                log.info("게시판 삭제 성공");
+                return new Response("삭제 성공","게시물 삭제 성공",postService.deletePost(channelId,id));
+            }
+            else{
+                log.info("게시판 삭제 실패");
+                return new Response("삭제 실패","이 글의 작성자가 아닙니다",null);
+            }
+        }
+        else {
+            // 존재하지 않는 유저
+            return new Response(
+                    "삭제 에러",
+                    "유저가 존재하지 않습니다",
+                    null
+            );
+        }
 
 
 
+
+        }
 }
+
