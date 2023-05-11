@@ -72,6 +72,25 @@ public class PostController {
         }
 
     }
+    @ApiOperation(value = "채널 수정" , notes = "채널 수정")
+    @PutMapping("/channel/update/{id}")
+    public Response updateChannel(@PathVariable("id") Long channelId, @RequestBody ChannelDTO channelDTO, Authentication authentication) {
+        log.info("채널 수정");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+        if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            return new Response("채널 수정 성공", "채널 수정 성공", channelService.updateChannel(channelId, channelDTO, member.getId()));
+        }
+        else {
+            // Handle the case when member is not found
+            return new Response(
+                    "채널 수정 에러",
+                    "유저가 존재하지 않습니다",
+                    null
+            );
+        }
+    }
     @ApiOperation(value = "채널 삭제" , notes = "채널 삭제")
     @DeleteMapping("/channel/delete/{id}")
     public Response deleteChannel(@PathVariable("id") Long channelId, Authentication authentication) {

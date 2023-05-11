@@ -75,5 +75,25 @@ public class ChannelService {
     }
 
 
+    public Object updateChannel(Long channelId, ChannelDTO channelDTO, long id) {
+        Optional<Channel> channelOptional = channelRepository.findById(channelId);
+        if (channelOptional.isPresent()) {
+            Channel channel = channelOptional.get();
+
+            // 채널을 작성한 유저인지 체크
+            if (channel.getMember().getId()==id) {
+                channel.setChannelName(channelDTO.getChannelName());
+                channel.setCategory(categoryRepository.findById(channelDTO.getCategoryId())
+                        .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+channelDTO.getCategoryId())));
+                channelRepository.save(channel);
+
+                return "채널 수정 성공";
+            } else {
+                throw new IllegalArgumentException("당신은 채널 크리에이터가 아닙니다");
+            }
+        } else {
+            throw new IllegalArgumentException("채널을 찾을 수 없습니다. channelId=" + channelId);
+        }
     }
+}
 
