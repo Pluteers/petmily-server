@@ -77,6 +77,7 @@ public class SecurityConfig {
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
 
 
+
                 .anyRequest().authenticated()// 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 
 

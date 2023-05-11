@@ -11,5 +11,6 @@ public class ChannelResponse<T> {
     private String success;
     private String message;
     private String channelName;
+    private String channelCreaterName;
     private T data;
 }

@@ -27,6 +27,8 @@ public class PostDTO extends BaseTimeEntity {
 
     @ApiModelProperty(value = "이미지 경로", example = "이미지 경로입니다.")
     private String imagePath;
+    @ApiModelProperty(value = "작성자아이디", example = "작성자 아이디입니다.")
+    private Long memberId;
 
     @ApiModelProperty(value = "작성자", example = "작성자입니다.")
     private String nickname;
@@ -51,6 +53,7 @@ public class PostDTO extends BaseTimeEntity {
                 post.getLikePost(),
                 post.getHit(),
                 post.getImagePath(),
+                post.getMember().getId(),
                 post.getMember().getNickname(),
 
                 post.getChannel().getChannelId(),

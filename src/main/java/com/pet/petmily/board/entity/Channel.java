@@ -1,6 +1,7 @@
 package com.pet.petmily.board.entity;
 
 
+import com.pet.petmily.user.entity.Member;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,5 +26,9 @@ public class Channel  {
     @JoinColumn(name = "category_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
 
 }

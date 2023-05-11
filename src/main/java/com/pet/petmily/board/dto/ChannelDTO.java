@@ -23,6 +23,10 @@ public class ChannelDTO  {
     private String categoryName;
     @ApiModelProperty(value = "카테고리 아이디", example = "카테고리 아이디입니다.")
     private long categoryId;
+    @ApiModelProperty(value = "회원 아이디", example = "회원 아이디입니다.")
+    private long memberId;
+    @ApiModelProperty(value = "회원 이름", example = "회원 이름입니다.")
+    private String nickname;
 
     public static ChannelDTO toDto(Channel channel) {
         log.info("channelDTO todto메소드 호출");
@@ -30,8 +34,11 @@ public class ChannelDTO  {
                 channel.getChannelId(),
                 channel.getChannelName(),
                 channel.getCategory().getCategoryName(),
-                channel.getCategory().getCategoryId());
+                channel.getCategory().getCategoryId(),
+                channel.getMember().getId(),
+                channel.getMember().getNickname());
     }
+
 
 
 }

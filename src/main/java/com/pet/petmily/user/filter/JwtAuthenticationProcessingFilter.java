@@ -14,6 +14,8 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -117,11 +119,20 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                   FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
-        jwtService.extractAccessToken(request)
-                .filter(jwtService::isTokenValid)
-                .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
-                        .ifPresent(email -> memberRepository.findByEmail(email)
-                                .ifPresent(this::saveAuthentication)));
+        try{
+            jwtService.extractAccessToken(request)
+                    .filter(jwtService::isTokenValid)
+                    .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
+                            .ifPresent(email -> memberRepository.findByEmail(email)
+                                    .ifPresent(this::saveAuthentication)));
+        } catch (Exception e) {
+            log.info("다른 형식의 엑세스 토큰입니다");
+            jwtService.extractAccessToken(request)
+                    .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
+                            .ifPresent(email -> memberRepository.findByEmail(email)
+                                    .ifPresent(this::saveAuthentication)));
+            filterChain.doFilter(request, response);
+        }
 
         filterChain.doFilter(request, response);
     }
@@ -143,11 +154,12 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
      */
     public void saveAuthentication(Member myUser) {
         String password = myUser.getPassword();
-        if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
+                if (password == null) { // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
             log.info("소셜유저 비밀번호 생성");
             password = PasswordUtil.generateRandomPassword();
+            password= PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(password);
         }
-
+                log.info("saveAuthentication() 호출");
         UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
                 .username(myUser.getEmail())
                 .password(password)

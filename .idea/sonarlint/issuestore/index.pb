@@ -11,26 +11,12 @@ s
 Csrc/main/java/com/pet/petmily/user/handler/LoginFailureHandler.java,2\2\2295bb5ca230dc87dd0cb47c4225ede5c97f8b1d
 s
 Csrc/main/java/com/pet/petmily/user/repository/MemberRepository.java,c\e\ce31a3bf7d2fc85abffb91f256bd327e7c79f699
-s
-Csrc/main/java/com/pet/petmily/user/handler/LoginSuccessHandler.java,3\0\300c6fd3e29b1ce476161b74c2746089e32ef96e
-j
-:src/main/java/com/pet/petmily/user/service/JwtService.java,e\8\e8bb2e7da02b90c74d99189b943d266c948440d5
 i
 9src/main/java/com/pet/petmily/user/util/PasswordUtil.java,4\1\41c466ff36dfb74e7f80d63d68c6f21eb32e92f6
 c
 3src/main/java/com/pet/petmily/user/entity/Role.java,7\0\70c2629c39982c614d8e943c25729293bace35dc
-€
-Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginFailureHandler.java,d\e\de9e87b5d10f4f33191d418b95cef0431903b07c
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 :
 
 Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-h
-8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
-
-]src/main/java/com/pet/petmily/user/filter/CustomJsonUsernamePasswordAuthenticationFilter.java,8\7\8714fd3b6b5a5f7d223985198037a62927977076
-€
-Psrc/main/java/com/pet/petmily/user/filter/JwtAuthenticationProcessingFilter.java,0\b\0bf0781a6ebbb0d036acd2ede922267b4802188f

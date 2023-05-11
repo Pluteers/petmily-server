@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 ;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -71,4 +72,34 @@ public class PostService {
     }
 
 
+    public boolean isWriter(Long postId, long memberId) {
+        Optional<Post> postOptional=postRepository.findById(postId);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            return post.getMember().getId()==memberId;
+            }
+        // Handle the case when the post is not found
+        throw new IllegalArgumentException("Post not found. postId=" + postId);
+
+
+    }
+
+    public PostDTO updatePost(Long channelId, Long id, PostDTO postDto) {
+        Optional<Post>postOptional=postRepository.findById(id);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            if(post.getChannel().getChannelId()!=channelId){
+                throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            }
+            post.setTitle(postDto.getTitle());
+            post.setContent(postDto.getContent());
+            post.setImagePath(postDto.getImagePath());
+            postRepository.save(post);
+            return postDto.toDto(post);
+        }
+        else{
+            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
+
+    }
 }
