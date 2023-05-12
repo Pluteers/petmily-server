@@ -78,9 +78,14 @@ public class PostController {
         log.info("채널 수정");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+
         if (memberOptional.isPresent()) {
             Member member = memberOptional.get();
-            return new Response("채널 수정 성공", "채널 수정 성공", channelService.updateChannel(channelId, channelDTO, member.getId()));
+            boolean isWriter = channelService.isWriter(channelId, member.getId());
+            if(!isWriter)
+                return new Response("채널 수정 에러", "당신은 채널 크리에이터가 아닙니다", null);
+            else
+                return new Response("채널 수정 성공", "채널 수정 성공", channelService.updateChannel(channelId, channelDTO, member.getId()));
         }
         else {
             // Handle the case when member is not found
@@ -99,7 +104,12 @@ public class PostController {
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
         if (memberOptional.isPresent()) {
             Member member = memberOptional.get();
-            return new Response("채널 삭제 성공", "채널 삭제 성공", channelService.deleteChannel(channelId, member.getId()));
+            boolean isWriter = channelService.isWriter(channelId, member.getId());
+            if(!isWriter)
+                return new Response("채널 삭제 에러", "당신은 채널 크리에이터가 아닙니다", null);
+            else
+                return new Response("채널 삭제 성공", "채널 삭제 성공", channelService.deleteChannel(channelId, member.getId()));
+
         }
         else {
             // Handle the case when member is not found

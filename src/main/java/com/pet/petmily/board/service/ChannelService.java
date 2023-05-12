@@ -95,5 +95,21 @@ public class ChannelService {
             throw new IllegalArgumentException("채널을 찾을 수 없습니다. channelId=" + channelId);
         }
     }
+
+    public boolean isWriter(Long channelId, long id) {
+        Optional<Channel> channelOptional = channelRepository.findById(channelId);
+        if (channelOptional.isPresent()) {
+            Channel channel = channelOptional.get();
+
+            // 채널을 작성한 유저인지 체크
+            if (channel.getMember().getId()==id) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            throw new IllegalArgumentException("채널을 찾을 수 없습니다. channelId=" + channelId);
+        }
+    }
 }
 
