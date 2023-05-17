@@ -25,7 +25,9 @@ public class AWSS3UploadService implements UploadService {
     public void uploadFile(InputStream inputStream, ObjectMetadata objectMetadata, String fileName) {
         log.info("uploadFile() 호출");
         log.info("fileName = " + fileName);
-        amazonS3.putObject(new PutObjectRequest(component.getBucket(), fileName, inputStream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead));
+        PutObjectRequest putObjectRequest = new PutObjectRequest(component.getBucket(), fileName, inputStream, objectMetadata)
+                .withCannedAcl(CannedAccessControlList.PublicRead);
+        amazonS3.putObject(putObjectRequest);
     }
 
     @Override
