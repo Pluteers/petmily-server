@@ -1,5 +1,0 @@
-
-b	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ïâ‘á8ÚªÎ›‚1
-v
-java:S22932"YReplace the type specification in this constructor call with the diamond operator ("<>").(úÎãï8ÜªÎ›‚1
-t	java:S116"SRename this field "S3Bucket" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËÊ«œýÿÿÿÿ8Œ«Î›‚1

@@ -1,15 +1,0 @@
-
-H
-java:S2160"+Override the "equals" method in this class.(ÌĞ‘–8”ğ––‚1
-K
-java:S1068")Remove this unused "title" private field.(åõò¹ıÿÿÿÿ8¡ğ––‚1
-M
-java:S1068"+Remove this unused "content" private field.(ÃÇÿôøÿÿÿÿ8¢ğ––‚1
-G
-java:S1068"*Remove this unused "status" private field.(äÎ£¦8¢ğ––‚1
-N
-java:S1068",Remove this unused "likePost" private field.(®éìÜüÿÿÿÿ8¢ğ––‚1
-D
-java:S1068"'Remove this unused "hit" private field.(»Îşö8¢ğ––‚1
-J
-java:S1068"-Remove this unused "imagePath" private field.(Ìš•8£ğ––‚1
