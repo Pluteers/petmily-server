@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 ;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -29,19 +30,24 @@ public class PostService {
 
     //게시판 전체 조회
     @Transactional(readOnly = true)
-    public List<PostDTO> getPost(){
-        List<Post> posts=postRepository.findAll();
-        List<PostDTO> postDtos= new ArrayList<>();
-        posts.forEach(s->postDtos.add(PostDTO.toDto(s)));
-        return postDtos;
+    public List<PostDTO> getAllPost(Long channelId){
+    List<Post> posts=postRepository.findAllByChannel_ChannelId(channelId);
+    List<PostDTO> postDtos=new ArrayList<>();
+    posts.forEach(s->postDtos.add(PostDTO.toDto(s)));
+
+
+    return postDtos;
 
     }
     //개별 게시글 조회
     @Transactional(readOnly = true)
-    public PostDTO getPost(Long id){
-        Post post=postRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
-        PostDTO postDto=PostDTO.toDto(post);
+    public PostDTO getPost(Long channelId,Long id){
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다=" + id));
+        if(post.getChannel().getChannelId()!=channelId){
+            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
         return PostDTO.toDto(post);
     }
 
@@ -66,4 +72,49 @@ public class PostService {
     }
 
 
+    public boolean isWriter(Long postId, long memberId) {
+        Optional<Post> postOptional=postRepository.findById(postId);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            return post.getMember().getId()==memberId;
+            }
+        // Handle the case when the post is not found
+        throw new IllegalArgumentException("Post not found.  postId=" + postId);
+
+
+    }
+
+    public PostDTO updatePost(Long channelId, Long id, PostDTO postDto) {
+        Optional<Post>postOptional=postRepository.findById(id);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            if(post.getChannel().getChannelId()!=channelId){
+                throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            }
+            post.setTitle(postDto.getTitle());
+            post.setContent(postDto.getContent());
+            post.setImagePath(postDto.getImagePath());
+            postRepository.save(post);
+            return postDto.toDto(post);
+        }
+        else{
+            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
+
+    }
+
+    public Object deletePost(Long channelId, Long id) {
+        Optional<Post>postOptional=postRepository.findById(id);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            if(post.getChannel().getChannelId()!=channelId){
+                throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            }
+            postRepository.delete(post);
+            return "삭제되었습니다.";
+        }
+        else{
+            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
+    }
 }

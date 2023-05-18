@@ -25,24 +25,34 @@ public class MemberService {
 
 
 
+
     public void signUp(MemberSignUpDto memberSignUpDto) throws Exception{
 
         if(memberRepository.findByEmail(memberSignUpDto.getEmail()).isPresent()){
+
             throw new Exception("이미 존재하는 이메일입니다.");
         }
         if(memberRepository.findByNickname(memberSignUpDto.getNickname()).isPresent()){
             throw new Exception("이미 존재하는 닉네임입니다.");
         }
+        log.info("회원가입 요청");
         Member member= Member.builder()
                 .email(memberSignUpDto.getEmail())
                 .password(passwordEncoder.encode(memberSignUpDto.getPassword()))
                 .nickname(memberSignUpDto.getNickname())
                 .role(Role.USER)
                 .status(true)
+                .socialType(memberSignUpDto.getSocialType())
+                .socialId(memberSignUpDto.getSocialId())
+
+
+
 
                 .build();
         //member.passwordEncode(passwordEncoder);
         memberRepository.save(member);
+
+
     }
 
 

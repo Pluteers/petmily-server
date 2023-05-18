@@ -48,6 +48,11 @@ dependencies {
     //JWT
     implementation 'com.auth0:java-jwt:4.2.1'
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.464'
+
+
 }
 
 tasks.named('test') {
