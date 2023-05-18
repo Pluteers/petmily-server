@@ -33,18 +33,20 @@ public class AWSS3UploadService implements UploadService {
     @Override
     public String getFileUrl(String fileName) {
         log.info("getFileUrl() 호출");
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(
-                component.getBucket(),
-                fileName
-        ).withMethod(HttpMethod.GET);
-
-        URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
-        return url.toString();
+//        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(
+//                component.getBucket(),
+//                fileName
+//        ).withMethod(HttpMethod.GET);
+//
+//        URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
+//        return url.toString();
+        return amazonS3.getUrl(component.getBucket(), fileName).toString();
     }
     @Override
     public byte[] downloadFile(String fileName) {
         log.info("Called downloadFile()");
         S3Object s3Object = amazonS3.getObject(component.getBucket(), fileName);
+        log.info("s3Object = " + s3Object);
         S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
 
         try {

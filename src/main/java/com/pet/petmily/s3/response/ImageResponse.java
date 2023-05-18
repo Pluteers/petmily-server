@@ -13,5 +13,6 @@ public class ImageResponse<T> {
 
     private String success;
     private String message;
+
     private T data;
 }

@@ -31,6 +31,7 @@ public class FileUploadService {
             try (InputStream inputStream = file.getInputStream()) {
                 s3Service.uploadFile(inputStream, objectMetadata, fileName);
                 String fileUrl = s3Service.getFileUrl(fileName);
+                log.info("fileUrl = " + fileUrl);
                 uploadedFileUrls.add(fileUrl);
             } catch (IOException e) {
                 throw new IllegalArgumentException(String.format("파일 변환 에러 (%s)", file.getOriginalFilename()));
@@ -43,6 +44,7 @@ public class FileUploadService {
     // 기존 확장자명을 유지한 채, 유니크한 파일의 이름을 생성하는 로직
     private String createFileName(String originalFileName) {
         log.info("createFileName() 호출");
+
         String folderName = "pet";
         return folderName+"/"+UUID.randomUUID().toString().concat(getFileExtension(originalFileName));
     }

@@ -2,12 +2,12 @@ package com.pet.petmily.s3.controller;
 
 
 
-import com.pet.petmily.board.response.Response;
+
+import com.pet.petmily.s3.response.ImageResponse;
 import com.pet.petmily.s3.service.FileUploadService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +22,9 @@ public class UploadController {
 
     @ApiOperation(value = "이미지 업로드", notes = "이미지 업로드")
     @PostMapping("image/upload")
-    public Response uploadImages(@RequestPart("files") MultipartFile[] files) {
+    public ImageResponse uploadImages(@RequestPart("file") MultipartFile[] files) {
         log.info("uploadImages() 호출");
-        return new Response("이미지 업로드 성공", "이미지 업로드 성공", fileUploadService.uploadImages(files));
+        return new ImageResponse("이미지 업로드 성공", "이미지 업로드 성공", fileUploadService.uploadImages(files));
     }
 
 

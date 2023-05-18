@@ -70,3 +70,11 @@ h
 8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
 h
 8src/main/java/com/pet/petmily/s3/util/MultipartUtil.java,2\7\2714a284f827f15426dce6f876f1db0523cab69b
+j
+:src/main/java/com/pet/petmily/board/response/Response.java,4\e\4e3966411a8bb1dee22870f990d575d9f7b75564
+r
+Bsrc/main/java/com/pet/petmily/board/controller/PostController.java,b\2\b2255e33a97608e51b3cb8d530ca4dc467c7c31e
+d
+4src/main/java/com/pet/petmily/board/entity/Post.java,7\c\7c6b8950cf312918ebf649bb5f64fa653e83da6c
+l
+<src/main/java/com/pet/petmily/board/service/PostService.java,e\b\eb34048971ce4b0d8e127988e33b16cf0161ba70
