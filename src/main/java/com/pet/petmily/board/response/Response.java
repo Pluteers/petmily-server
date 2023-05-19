@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Response<T> {
 
-    private String success;
+    private String status;
     private String message;
     private T data;
 }

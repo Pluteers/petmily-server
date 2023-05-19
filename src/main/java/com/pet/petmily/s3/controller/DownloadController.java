@@ -25,6 +25,8 @@ public class DownloadController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG); // Adjust content type if necessary
+        headers.setContentType(MediaType.IMAGE_PNG);
+        headers.setContentType(MediaType.IMAGE_GIF);;
 
         return ResponseEntity.ok()
                 .headers(headers)

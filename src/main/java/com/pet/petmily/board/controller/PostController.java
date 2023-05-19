@@ -43,6 +43,7 @@ public class PostController {
     @GetMapping("/channel/{channelId}/post/{id}")
     public ChannelResponse getPost(@PathVariable("channelId") Long channelId,@PathVariable("id") Long id) {
         log.info("게시판 개별 조회");
+
         return new ChannelResponse("조회 성공","채널별 개별 게시물 return",channelService.getChannelById(channelId).getChannelName()
                 ,channelRepository.findById(channelId).get().getMember().getNickname()
                 ,postService.getPost(channelId,id));
@@ -209,5 +210,18 @@ public class PostController {
 
 
         }
+
+    @ApiOperation(value= "좋아요 클릭" ,notes = "해당 postId를 가진 게시물에 좋아요 클릭")
+    @PostMapping("/channel/{channelId}/post/{postId}/like")
+    public Response likePost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId){
+        return new Response("좋아요 api 수행","아래의 메세지를 확인해주세요",postService.likePost(channelId,postId));
+
+
+
+        }
+
+
+
+
 }
 
