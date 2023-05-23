@@ -48,8 +48,6 @@ r
 Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
 v
 Fsrc/main/java/com/pet/petmily/board/repository/CategoryRepository.java,c\1\c14cc6e5fcfb8f71c360ce5546427ccde051231a
-u
-Esrc/main/java/com/pet/petmily/board/repository/ChannelRepository.java,7\3\73004ab5b7c6d228a9100c42a46933b61c49a580
 d
 4src/main/java/com/pet/petmily/board/dto/PostDTO.java,b\7\b7832fd430396e1b06972c0073955bc094bc373a
 h
@@ -58,8 +56,6 @@ d
 4src/main/java/com/pet/petmily/board/entity/Post.java,7\c\7c6b8950cf312918ebf649bb5f64fa653e83da6c
 s
 Csrc/main/java/com/pet/petmily/user/controller/MemberController.java,d\a\da365fa07cdc51f5f4e83ed607c97ac43aa7c450
-h
-8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
 g
 7src/main/java/com/pet/petmily/config/SwaggerConfig.java,a\a\aa8920688894f53a31a9914600b808d5a234bcd7
 m

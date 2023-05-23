@@ -2,7 +2,9 @@ package com.pet.petmily.board.controller;
 
 import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
+import com.pet.petmily.board.entity.Channel;
 import com.pet.petmily.board.repository.ChannelRepository;
+import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.board.response.ChannelResponse;
 import com.pet.petmily.board.response.Response;
 import com.pet.petmily.board.service.ChannelService;
@@ -24,6 +26,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class PostController {
+    private final PostRepository postRepository;
     private final ChannelRepository channelRepository;
     private final PostService postService;
     private final ChannelService channelService;
@@ -33,7 +36,7 @@ public class PostController {
     @GetMapping("/channel/{channelId}/post")
     public ChannelResponse getAllPost(@PathVariable("channelId") Long channelId) {
         log.info("게시판 전체 조회(채널별)");
-        if(channelService.getChannelById(channelId)==null){
+        if(channelRepository.findById(channelId).isEmpty()){
             //채널 번호 입력 오류
             return new ChannelResponse("조회 실패","채널이 존재하지 않습니다.",null,null,null);
         }
@@ -47,11 +50,12 @@ public class PostController {
     @GetMapping("/channel/{channelId}/post/{id}")
     public ChannelResponse getPost(@PathVariable("channelId") Long channelId,@PathVariable("id") Long id) {
         log.info("게시판 개별 조회");
-        if(channelService.getChannelById(channelId)==null){
+
+        if(channelRepository.findById(channelId).isEmpty()){
             //채널 번호 입력 오류
             return new ChannelResponse("조회 실패","채널이 존재하지 않습니다.",null,null,null);
         }
-        else if(postService.getPost(channelId,id)==null){
+        else if(postRepository.findById(id).isEmpty()){
             //게시글 번호 입력 오류
             return new ChannelResponse("조회 실패","게시물이 존재하지 않습니다.",null,null,null);
         }
