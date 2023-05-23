@@ -8,6 +8,9 @@ import com.pet.petmily.board.entity.Post;
 import com.pet.petmily.board.repository.CategoryRepository;
 import com.pet.petmily.board.repository.ChannelRepository;
 import com.pet.petmily.board.repository.PostRepository;
+import com.pet.petmily.comment.entity.Comment;
+import com.pet.petmily.comment.repository.CommentRepository;
+import com.pet.petmily.comment.response.CommentResponse;
 import com.pet.petmily.user.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +30,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final CategoryRepository categoryRepository;
     private final ChannelRepository channelRepository;
+    private final CommentRepository commentRepository;
 
     //게시판 전체 조회
     @Transactional(readOnly = true)
@@ -113,6 +117,12 @@ public class PostService {
             if(post.getChannel().getChannelId()!=channelId){
                 throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
             }
+            List<Comment> comments=post.getComments();
+            for (Comment comment : comments) {
+                commentRepository.delete(comment);
+            }
+
+
             postRepository.delete(post);
             return "삭제되었습니다.";
         }

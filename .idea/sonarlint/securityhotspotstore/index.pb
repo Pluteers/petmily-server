@@ -41,8 +41,6 @@ Asrc/main/java/com/pet/petmily/board/response/ChannelResponse.java,d\e\deb23f2f
 m
 =src/main/java/com/pet/petmily/user/auth/PrincipalDetails.java,9\f\9f10fb0cb6e43713af2028a13dbc03ab12650e88
 g
-7src/main/java/com/pet/petmily/board/entity/Channel.java,8\4\849314d1ca04deaeb395108b5f903f41f4525edb
-g
 7src/main/java/com/pet/petmily/board/dto/ChannelDTO.java,1\2\12a65b0acccf4885a6a05248b239abe5ed034c1f
 r
 Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
@@ -52,8 +50,6 @@ d
 4src/main/java/com/pet/petmily/board/dto/PostDTO.java,b\7\b7832fd430396e1b06972c0073955bc094bc373a
 h
 8src/main/java/com/pet/petmily/s3/util/MultipartUtil.java,2\7\2714a284f827f15426dce6f876f1db0523cab69b
-d
-4src/main/java/com/pet/petmily/board/entity/Post.java,7\c\7c6b8950cf312918ebf649bb5f64fa653e83da6c
 s
 Csrc/main/java/com/pet/petmily/user/controller/MemberController.java,d\a\da365fa07cdc51f5f4e83ed607c97ac43aa7c450
 g
@@ -79,3 +75,7 @@ Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 k
 ;src/main/java/com/pet/petmily/s3/config/AmazonS3Config.java,3\6\36b7f58cd8986a009c941391fb9698c0f021c945
+u
+Esrc/main/java/com/pet/petmily/board/repository/ChannelRepository.java,7\3\73004ab5b7c6d228a9100c42a46933b61c49a580
+h
+8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
