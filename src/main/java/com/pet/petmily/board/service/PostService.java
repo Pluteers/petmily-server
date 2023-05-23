@@ -40,7 +40,7 @@ public class PostService {
 
     }
     //개별 게시글 조회
-    @Transactional(readOnly = true)
+    @Transactional
     public PostDTO getPost(Long channelId,Long id){
 
         Post post = postRepository.findById(id)
@@ -48,6 +48,9 @@ public class PostService {
         if(post.getChannel().getChannelId()!=channelId){
             throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
         }
+        post.setHit(post.getHit()+1);
+        log.info("조회수 증가");
+        log.info("조회수:{}",post.getHit());
         return PostDTO.toDto(post);
     }
 
@@ -115,6 +118,24 @@ public class PostService {
         }
         else{
             throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+        }
+    }
+
+    public Object likePost(Long channelId, Long postId) {
+        Optional<Post>postOptional=postRepository.findById(postId);
+        if(postOptional.isPresent()){
+            Post post=postOptional.get();
+            if(post.getChannel().getChannelId()!=channelId){
+                return ("실패 : 채널에 해당 게시글이 없습니다 다른 채널을 조회해보세요 = " + postId);
+            }
+            post.setLikePost(post.getLikePost()+1);
+            postRepository.save(post);
+            log.info("좋아요 증가");
+            log.info("좋아요:{}",post.getLikePost());
+            return "성공 : 좋아요가 추가되었습니다, 현재 좋아요 수 : "+post.getLikePost();
+        }
+        else{
+             return ("실패 : 해당 게시글이 없습니다 = " + postId);
         }
     }
 }

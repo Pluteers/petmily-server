@@ -1,6 +1,7 @@
 package com.pet.petmily.s3.service;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.pet.petmily.s3.dto.FileDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,11 @@ public class FileUploadService {
     private final UploadService s3Service;
 
     public List<String> uploadImages(MultipartFile[] files) {
+        FileDTO fileDTO = new FileDTO();
         List<String> uploadedFileUrls = new ArrayList<>();
 
         for (MultipartFile file : files) {
+
             String fileName = createFileName(file.getOriginalFilename());
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(file.getSize());
