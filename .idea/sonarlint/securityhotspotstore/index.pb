@@ -37,11 +37,6 @@ k
 ;src/main/java/com/pet/petmily/user/dto/MemberSignUpDto.java,9\7\970455ee8d9d761c108f9598d124192ae456dc84
 k
 ;src/main/java/com/pet/petmily/user/dto/MemberUpdateDTO.java,a\4\a451945476eb98e63cd4362bb2ae6338679be46a
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-q
-Asrc/main/java/com/pet/petmily/board/response/ChannelResponse.java,d\e\deb23f2ff14669cc91ded299b476a774f6b487a9
 m
 =src/main/java/com/pet/petmily/user/auth/PrincipalDetails.java,9\f\9f10fb0cb6e43713af2028a13dbc03ab12650e88
 m
@@ -60,8 +55,6 @@ e
 5src/main/java/com/pet/petmily/user/entity/Member.java,f\1\f1d4eb98942495766a60d479ad6ec619d5680e0f
 o
 ?src/main/java/com/pet/petmily/board/service/ChannelService.java,6\c\6c70ab9b1fda35ba84438dcf376caeebd089aa93
-d
-4src/main/java/com/pet/petmily/board/dto/PostDTO.java,b\7\b7832fd430396e1b06972c0073955bc094bc373a
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 s
@@ -70,10 +63,6 @@ h
 8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
 h
 8src/main/java/com/pet/petmily/s3/util/MultipartUtil.java,2\7\2714a284f827f15426dce6f876f1db0523cab69b
-j
-:src/main/java/com/pet/petmily/board/response/Response.java,4\e\4e3966411a8bb1dee22870f990d575d9f7b75564
-r
-Bsrc/main/java/com/pet/petmily/board/controller/PostController.java,b\2\b2255e33a97608e51b3cb8d530ca4dc467c7c31e
 d
 4src/main/java/com/pet/petmily/board/entity/Post.java,7\c\7c6b8950cf312918ebf649bb5f64fa653e83da6c
 l

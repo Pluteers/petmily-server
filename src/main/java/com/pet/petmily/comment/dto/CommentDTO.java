@@ -28,10 +28,13 @@ public class CommentDTO extends BaseTimeEntity {
     private LocalDateTime lastModifiedDate;
     @ApiModelProperty(value = "유저 닉네임", example = "유저 닉네임")
     private String nickname;
-    @ApiModelProperty(value = "게시글 아이디", example = "게시글 아이디")
-    private Long postId;
     @ApiModelProperty(value = "유저 아이디", example = "유저 아이디")
     private Long memberId;
+    @ApiModelProperty(value = "게시글 제목", example = "게시글 제목")
+    private String postTitle;
+
+    @ApiModelProperty(value = "게시글 아이디", example = "게시글 아이디")
+    private Long postId;
 
     public static CommentDTO toDto(Comment comment) {
         log.info("CommentDTO toDto 메소드");
@@ -43,9 +46,10 @@ public class CommentDTO extends BaseTimeEntity {
                 comment.getCreateDate(),
                 comment.getLastModifiedDate(),
                 comment.getMember().getNickname(),
+                comment.getMember().getId(),
+                comment.getPost().getTitle(),
+                comment.getPost().getPostId()
 
-                comment.getPost().getPostId(),
-                comment.getMember().getId()
         );
     }
 

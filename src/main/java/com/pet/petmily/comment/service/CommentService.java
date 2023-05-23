@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,11 +41,10 @@ public class CommentService {
     }
 
     //댓글 작성
-    public CommentDTO addComment(Long postId, CommentDTO commentDTO) {
+    public CommentDTO addComment(Long postId, CommentDTO commentDTO,Member member) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. " + postId));
-        Member member = memberRepository.findById(commentDTO.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("등록되지 않은 회원입니다. " + commentDTO.getMemberId()));
+
 
         Comment comment = new Comment();
         comment.setPost(post);
@@ -63,10 +63,10 @@ public class CommentService {
         commentRepository.delete(comment);
     }
     // 댓글 수정
-    public CommentDTO updateComment(Long commentId, String content) {
+    public CommentDTO updateComment(Long commentId, CommentDTO commentDTO) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다." + commentId));
-        comment.setContent(content);
+        comment.setContent(commentDTO.getContent());
         commentRepository.save(comment);
         return CommentDTO.toDto(comment);
     }
@@ -77,5 +77,16 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다." + commentId));
         comment.setCommentLike(comment.getCommentLike() + 1);
         commentRepository.save(comment);
+    }
+
+    //댓글 작성자 확인
+    public boolean isCommentWriter(Long commentId, long memberId) {
+        Optional<Comment> commentOptional=commentRepository.findById(commentId);
+        if(commentOptional.isPresent()){
+            Comment comment=commentOptional.get();
+            return comment.getMember().getId()==memberId;
+
+        }
+        throw new IllegalArgumentException("없는 댓글입니다." + commentId);
     }
 }

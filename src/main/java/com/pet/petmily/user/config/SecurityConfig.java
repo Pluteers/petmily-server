@@ -100,6 +100,7 @@ public class SecurityConfig {
 
         http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
 
+
         return http.build();
     }
 
