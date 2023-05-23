@@ -33,6 +33,10 @@ public class PostController {
     @GetMapping("/channel/{channelId}/post")
     public ChannelResponse getAllPost(@PathVariable("channelId") Long channelId) {
         log.info("게시판 전체 조회(채널별)");
+        if(channelService.getChannelById(channelId)==null){
+            //채널 번호 입력 오류
+            return new ChannelResponse("조회 실패","채널이 존재하지 않습니다.",null,null,null);
+        }
         return new ChannelResponse(
                 "조회 성공","채널별 전체 게시물 return",channelService.getChannelById(channelId).getChannelName()
                 ,channelRepository.findById(channelId).get().getMember().getNickname()
@@ -43,10 +47,20 @@ public class PostController {
     @GetMapping("/channel/{channelId}/post/{id}")
     public ChannelResponse getPost(@PathVariable("channelId") Long channelId,@PathVariable("id") Long id) {
         log.info("게시판 개별 조회");
+        if(channelService.getChannelById(channelId)==null){
+            //채널 번호 입력 오류
+            return new ChannelResponse("조회 실패","채널이 존재하지 않습니다.",null,null,null);
+        }
+        else if(postService.getPost(channelId,id)==null){
+            //게시글 번호 입력 오류
+            return new ChannelResponse("조회 실패","게시물이 존재하지 않습니다.",null,null,null);
+        }
+        else {
 
-        return new ChannelResponse("조회 성공","채널별 개별 게시물 return",channelService.getChannelById(channelId).getChannelName()
-                ,channelRepository.findById(channelId).get().getMember().getNickname()
-                ,postService.getPost(channelId,id));
+            return new ChannelResponse("조회 성공", "채널별 개별 게시물 return", channelService.getChannelById(channelId).getChannelName()
+                    , channelRepository.findById(channelId).get().getMember().getNickname()
+                    , postService.getPost(channelId, id));
+        }
     }
 
     @ApiOperation(value = "채널 생성" , notes = "채널 생성")
@@ -125,6 +139,7 @@ public class PostController {
     @GetMapping("/channel")
     public Response getChannel(){
         log.info("채널 조회");
+
         return new Response("채널 조회 성공","채널 조회 성공",channelService.getChannel());
     }
     @ApiOperation(value = "게시판 작성", notes = "해당 channelId를 가진 채널에 게시물 작성")

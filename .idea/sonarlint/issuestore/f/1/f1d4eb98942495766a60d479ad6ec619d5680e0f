@@ -1,36 +1,36 @@
 
-
-java:S4165L"fRemove this useless assignment; "nickname" already holds the assigned value along all execution paths.(¡é¨¤şÿÿÿÿ
-ƒ
-java:S4165N"hRemove this useless assignment; "socialType" already holds the assigned value along all execution paths.(º÷é¢şÿÿÿÿ
-|
-java:S4165K"fRemove this useless assignment; "password" already holds the assigned value along all execution paths.(÷ã´½
-…
-java:S4165P"jRemove this useless assignment; "refreshToken" already holds the assigned value along all execution paths.(ì¨²Õşÿÿÿÿ
 
 java:S4165Q"dRemove this useless assignment; "status" already holds the assigned value along all execution paths.(‰«Íúÿÿÿÿ
 
 java:S4165O"fRemove this useless assignment; "socialId" already holds the assigned value along all execution paths.(ÆÄÉÁüÿÿÿÿ
-}
-java:S4165M"bRemove this useless assignment; "role" already holds the assigned value along all execution paths.(‚±×øÿÿÿÿ
+ƒ
+java:S4165N"hRemove this useless assignment; "socialType" already holds the assigned value along all execution paths.(º÷é¢şÿÿÿÿ
+
+java:S4165L"fRemove this useless assignment; "nickname" already holds the assigned value along all execution paths.(¡é¨¤şÿÿÿÿ
+…
+java:S4165P"jRemove this useless assignment; "refreshToken" already holds the assigned value along all execution paths.(ì¨²Õşÿÿÿÿ
+|
+java:S4165K"fRemove this useless assignment; "password" already holds the assigned value along all execution paths.(÷ã´½
 ~
 java:S4165J"cRemove this useless assignment; "email" already holds the assigned value along all execution paths.(ÍùÅ‡øÿÿÿÿ
+}
+java:S4165M"bRemove this useless assignment; "role" already holds the assigned value along all execution paths.(‚±×øÿÿÿÿ
 M
 java:S2160"+Override the "equals" method in this class.(é¬×úÿÿÿÿ8Í–ç™‚1
 ]	java:S1079"AConstructor has 8 parameters, which is greater than 7 authorized.(÷ü±‹8Î–ç™‚1
+Q
+java:S1656M"/Remove or correct this useless self-assignment.(‚±×øÿÿÿÿ8Ñ¬ïÂ€1
 E
 java:S1656K"/Remove or correct this useless self-assignment.(÷ã´½
 Q
-java:S1656M"/Remove or correct this useless self-assignment.(‚±×øÿÿÿÿ8Ñ¬ïÂ€1
+java:S1656O"/Remove or correct this useless self-assignment.(ÆÄÉÁüÿÿÿÿ8æ¼™ş0
 Q
 java:S1656N"/Remove or correct this useless self-assignment.(º÷é¢şÿÿÿÿ8íÈô˜‚1
 Q
-java:S1656O"/Remove or correct this useless self-assignment.(ÆÄÉÁüÿÿÿÿ8æ¼™ş0
-Q
 java:S1656L"/Remove or correct this useless self-assignment.(¡é¨¤şÿÿÿÿ8æ¼™ş0
 Q
-java:S1656Q"/Remove or correct this useless self-assignment.(‰«Íúÿÿÿÿ8íÈô˜‚1
-Q
 java:S1656J"/Remove or correct this useless self-assignment.(ÍùÅ‡øÿÿÿÿ8×–ç™‚1
+Q
+java:S1656Q"/Remove or correct this useless self-assignment.(‰«Íúÿÿÿÿ8íÈô˜‚1
 Q
 java:S1656P"/Remove or correct this useless self-assignment.(ì¨²Õşÿÿÿÿ8×–ç™‚1

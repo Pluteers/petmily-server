@@ -1,5 +1,6 @@
 package com.pet.petmily.s3.controller;
 
+
 import com.pet.petmily.s3.service.FileUploadService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +19,13 @@ public class DownloadController {
     private final FileUploadService fileUploadService;
 
     @ApiOperation(value = "이미지 다운로드", notes = "이미지를 다운로드합니다")
-    @GetMapping("image/download")
+    @GetMapping(value = "image/download", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE})
     public ResponseEntity<byte[]> downloadImage(String fileName) {
         log.info("Call downloadImage()");
         byte[] imageData = fileUploadService.downloadImage(fileName);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG); // Adjust content type if necessary
-        headers.setContentType(MediaType.IMAGE_PNG);
-        headers.setContentType(MediaType.IMAGE_GIF);;
 
         return ResponseEntity.ok()
                 .headers(headers)

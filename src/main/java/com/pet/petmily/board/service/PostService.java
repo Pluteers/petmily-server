@@ -132,7 +132,7 @@ public class PostService {
             postRepository.save(post);
             log.info("좋아요 증가");
             log.info("좋아요:{}",post.getLikePost());
-            return "성공 : 좋아요가 추가되었습니다.";
+            return "성공 : 좋아요가 추가되었습니다, 현재 좋아요 수 : "+post.getLikePost();
         }
         else{
              return ("실패 : 해당 게시글이 없습니다 = " + postId);
