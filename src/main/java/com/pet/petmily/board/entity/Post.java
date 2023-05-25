@@ -35,7 +35,7 @@ public class Post extends BaseTimeEntity {
     private String imagePath;
 
     @JoinColumn(name = "member_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     @JoinColumn(name = "category_id")
@@ -43,7 +43,7 @@ public class Post extends BaseTimeEntity {
     private Category category;
 
     @JoinColumn(name ="channel_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Channel channel;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)

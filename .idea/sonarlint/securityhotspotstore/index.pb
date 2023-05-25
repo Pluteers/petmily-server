@@ -25,8 +25,6 @@ R
 "src/main/resources/application.yml,a\6\a6d8b8556fee0e03112ce2bf34b8cb27a7dc9e58
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
-h
-8src/main/java/com/pet/petmily/board/entity/Category.java,b\1\b1fb35cd6d4f56d53feb01cf493a4ff9f8e70f14
 y
 Isrc/main/java/com/pet/petmily/user/controller/HeaderReaderController.java,e\1\e1e242b7053cfbbbd0e408d577adeac720f05baf
 j
@@ -64,8 +62,6 @@ j
 :src/main/java/com/pet/petmily/board/response/Response.java,4\e\4e3966411a8bb1dee22870f990d575d9f7b75564
 a
 1src/main/java/com/pet/petmily/s3/dto/FileDTO.java,5\d\5d2b7aaf1c470d37eee453d9fea4557a90b105a6
-m
-=src/main/java/com/pet/petmily/user/config/SecurityConfig.java,f\b\fbe5d14d6e33f3f5dc631ee9ff87e4545c38686b
 l
 <src/main/java/com/pet/petmily/s3/response/ImageResponse.java,f\1\f13a8ad2c4a9dc9a3a33ce9e27eeb27f64b985a2
 :
@@ -77,5 +73,9 @@ k
 ;src/main/java/com/pet/petmily/s3/config/AmazonS3Config.java,3\6\36b7f58cd8986a009c941391fb9698c0f021c945
 u
 Esrc/main/java/com/pet/petmily/board/repository/ChannelRepository.java,7\3\73004ab5b7c6d228a9100c42a46933b61c49a580
-h
-8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
+k
+;src/main/java/com/pet/petmily/s3/component/S3Component.java,c\9\c940f4862ac1df39b507e6e47488f1fd75c89052
+q
+Asrc/main/java/com/pet/petmily/s3/controller/UploadController.java,e\8\e816cf114bad975bd9b448f83322f1c22fc6f66b
+k
+;src/main/java/com/pet/petmily/s3/service/UploadService.java,2\e\2e5f9840888a4ccc8df442dbc1f711ebf1bf2254

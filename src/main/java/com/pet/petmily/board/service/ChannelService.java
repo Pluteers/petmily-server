@@ -87,7 +87,7 @@ public class ChannelService {
                         .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+channelDTO.getCategoryId())));
                 channelRepository.save(channel);
 
-                return "채널 수정 성공";
+                return ChannelDTO.toDto(channel);
             } else {
                 throw new IllegalArgumentException("당신은 채널 크리에이터가 아닙니다");
             }
