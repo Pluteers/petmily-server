@@ -28,12 +28,8 @@ j
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-q
-Asrc/main/java/com/pet/petmily/board/response/ChannelResponse.java,d\e\deb23f2ff14669cc91ded299b476a774f6b487a9
 m
 =src/main/java/com/pet/petmily/user/auth/PrincipalDetails.java,9\f\9f10fb0cb6e43713af2028a13dbc03ab12650e88
-g
-7src/main/java/com/pet/petmily/board/dto/ChannelDTO.java,1\2\12a65b0acccf4885a6a05248b239abe5ed034c1f
 r
 Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
 v
@@ -77,17 +73,9 @@ g
 7src/main/java/com/pet/petmily/board/entity/Channel.java,8\4\849314d1ca04deaeb395108b5f903f41f4525edb
 d
 4src/main/java/com/pet/petmily/board/entity/Post.java,7\c\7c6b8950cf312918ebf649bb5f64fa653e83da6c
-j
-:src/main/java/com/pet/petmily/board/response/Response.java,4\e\4e3966411a8bb1dee22870f990d575d9f7b75564
 o
 ?src/main/java/com/pet/petmily/board/service/ChannelService.java,6\c\6c70ab9b1fda35ba84438dcf376caeebd089aa93
-r
-Bsrc/main/java/com/pet/petmily/board/controller/PostController.java,b\2\b2255e33a97608e51b3cb8d530ca4dc467c7c31e
 y
 Isrc/main/java/com/pet/petmily/user/controller/HeaderReaderController.java,e\1\e1e242b7053cfbbbd0e408d577adeac720f05baf
 u
 Esrc/main/java/com/pet/petmily/report/repository/ReportRepository.java,3\7\37beb620650e67baea08e92a2e45925f3a346f0d
-g
-7src/main/java/com/pet/petmily/report/entity/Report.java,8\f\8f1fe730ea022293229adbcf549ee9090195fefc
-l
-<src/main/java/com/pet/petmily/board/service/PostService.java,e\b\eb34048971ce4b0d8e127988e33b16cf0161ba70

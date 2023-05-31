@@ -12,6 +12,7 @@ import com.pet.petmily.board.response.Response;
 import com.pet.petmily.comment.entity.Comment;
 import com.pet.petmily.comment.repository.CommentRepository;
 import com.pet.petmily.comment.response.CommentResponse;
+import com.pet.petmily.report.ReportResponse;
 import com.pet.petmily.report.entity.Report;
 import com.pet.petmily.report.repository.ReportRepository;
 import com.pet.petmily.user.entity.Member;
@@ -156,7 +157,7 @@ public class PostService {
     }
 
     @Transactional
-    public Response reportPost(Long postId, Long userId) {
+    public ReportResponse reportPost(Long postId, Long userId, String content) {
         log.info("reportPost메소드 진입");
         Optional<Post> postOptional = postRepository.findById(postId);
         if (postOptional.isPresent()) {
@@ -170,12 +171,14 @@ public class PostService {
                 Optional<Report> existingReport = reportRepository.findByPostAndMember(post, member);
                 if (existingReport.isPresent()) {
                     // 이미 유저가 신고한 게시글
-                    return new Response<>("false", "이미 신고한 게시글입니다.", null);
+                    return new ReportResponse<>("false", "이미 신고한 게시글입니다.", post.getTitle(),content, null);
                 }
 
                 Report report = new Report();
+
                 report.setPost(post);
                 report.setMember(member);
+                report.setContent(content);
 
 
 
@@ -185,18 +188,19 @@ public class PostService {
                 if (reportCount >= 3) {
 
                     deletePost(post.getChannel().getChannelId(), postId);  // DeletePost메소드 호출
-                    return new Response<>("true", "신고가 접수되었습니다. 신고 한도에 도달하여 게시글이 자동 삭제되었습니다.", null);
+                    return new ReportResponse<>("true", "신고가 접수되었습니다. 신고 한도에 도달하여 게시글이 자동 삭제되었습니다."
+                            , post.getTitle(),content,null);
                 }
-                return new Response<>("true", "신고가 접수되었습니다.", null);
+                return new ReportResponse<>("true", "신고가 접수되었습니다.", post.getTitle(),content,null);
 
 
 
                 // Rest of your report logic...
             } else {
-                return new Response<>("false", "해당 유저가 없습니다.", null);
+                return new ReportResponse<>("false", "해당 유저가 없습니다.", post.getTitle(),content,null);
             }
         } else {
-            return new Response<>("false", "해당 게시글이 없습니다.", null);
+            return new ReportResponse<>("false", "해당 게시글이 없습니다.", null,content,null);
         }
 
     }

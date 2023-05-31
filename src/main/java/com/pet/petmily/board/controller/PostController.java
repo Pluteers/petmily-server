@@ -8,6 +8,9 @@ import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.board.response.ChannelResponse;
 import com.pet.petmily.board.response.Response;
 import com.pet.petmily.board.service.ChannelService;
+import com.pet.petmily.report.dto.ReportDTO;
+import com.pet.petmily.report.entity.Report;
+import com.pet.petmily.report.repository.ReportRepository;
 import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.repository.MemberRepository;
 
@@ -26,6 +29,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class PostController {
+    private final ReportRepository reportRepository;
     private final PostRepository postRepository;
     private final ChannelRepository channelRepository;
     private final PostService postService;
@@ -239,7 +243,8 @@ public class PostController {
     }
     @ApiOperation(value= "게시글 신고" ,notes = "해당 postId를 가진 게시물에 신고")
     @PostMapping("/channel/{channelId}/post/{postId}/report")
-    public Response reportPost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId,Authentication authentication) {
+    public Response reportPost(@PathVariable("channelId") Long channelId, @PathVariable("postId") Long postId,
+                               @RequestBody Report report, Authentication authentication) {
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
         if(memberOptional.isPresent()) {
@@ -249,9 +254,11 @@ public class PostController {
                 log.info("게시판 신고 실패");
                 return new Response("신고 실패","자신의 글은 신고할 수 없습니다",null);
             }
+          
             else{
+
                 log.info("게시판 신고 성공");
-                return new Response("신고 요청","게시물 신고 api 진입",postService.reportPost(postId,member.getId()));
+                return new Response("신고 요청","게시물 신고 api 진입",postService.reportPost(postId,member.getId(),report.getContent()));
             }
         }
         else {
