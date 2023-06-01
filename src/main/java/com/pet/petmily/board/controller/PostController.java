@@ -254,7 +254,7 @@ public class PostController {
                 log.info("게시판 신고 실패");
                 return new Response("신고 실패","자신의 글은 신고할 수 없습니다",null);
             }
-          
+
             else{
 
                 log.info("게시판 신고 성공");

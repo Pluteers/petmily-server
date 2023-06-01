@@ -42,11 +42,12 @@ public class PostDTO extends BaseTimeEntity {
     private LocalDateTime createDate;
     @ApiModelProperty(value = "수정일", example = "수정일입니다.")
     private LocalDateTime lastModifiedDate;
+    private int commentCount; // New field for comment count
     public static PostDTO toDto(Post post) {
-        
+
         log.info("postDTO todto메소드 호출");
         return new PostDTO(
-                
+
                 post.getPostId(),
                 post.getTitle(),
                 post.getContent(),
@@ -59,8 +60,10 @@ public class PostDTO extends BaseTimeEntity {
                 post.getChannel().getChannelId(),
                 post.getChannel().getChannelName(),
                 post.getCreateDate(),
-                post.getLastModifiedDate());
+                post.getLastModifiedDate(),
+                post.getComments().size());
     }
+
 
 
 }
