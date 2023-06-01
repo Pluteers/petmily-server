@@ -42,7 +42,7 @@ public class PostDTO extends BaseTimeEntity {
     private LocalDateTime createDate;
     @ApiModelProperty(value = "수정일", example = "수정일입니다.")
     private LocalDateTime lastModifiedDate;
-    private int commentCount; // New field for comment count
+    private int commentCount; // 댓글 수
     public static PostDTO toDto(Post post) {
 
         log.info("postDTO todto메소드 호출");

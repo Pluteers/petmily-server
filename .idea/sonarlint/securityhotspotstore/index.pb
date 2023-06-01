@@ -30,8 +30,6 @@ j
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 m
 =src/main/java/com/pet/petmily/user/auth/PrincipalDetails.java,9\f\9f10fb0cb6e43713af2028a13dbc03ab12650e88
-r
-Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
 v
 Fsrc/main/java/com/pet/petmily/board/repository/CategoryRepository.java,c\1\c14cc6e5fcfb8f71c360ce5546427ccde051231a
 h

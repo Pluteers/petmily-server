@@ -36,6 +36,16 @@ public class PostController {
     private final ChannelService channelService;
     private final MemberRepository memberRepository;
 
+    @ApiOperation(value = "내가 쓴 게시글 조회", notes = "내가 쓴 게시글 조회")
+    @GetMapping("/post/mypage")
+    public Response getMyPost(Authentication authentication) {
+        log.info("내가 쓴 게시글 조회");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Member member = memberRepository.findByEmail(userDetails.getUsername()).get();
+        return new Response("조회 성공","내가 쓴 게시글 조회",postService.getMyPost(member));
+
+    }
+
     @ApiOperation(value = "게시판 전체 조회", notes = "게시판 전체 조회")
     @GetMapping("/channel/{channelId}/post")
     public ChannelResponse getAllPost(@PathVariable("channelId") Long channelId) {
