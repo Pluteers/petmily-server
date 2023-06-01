@@ -2,6 +2,8 @@ package com.pet.petmily.user.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pet.petmily.user.repository.MemberRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -80,6 +85,13 @@ public class JwtService {
      */
     public void sendAccessToken(HttpServletResponse response, String accessToken) {
         response.setStatus(HttpServletResponse.SC_OK);
+//        Map<String,String> jwtHeader = new HashMap<>();
+//        jwtHeader.put("Authorization", accessToken);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String result=objectMapper.writeValueAsString(jwtHeader);
+//        response.getWriter().write(result);
+//        response.getWriter().flush();
+
 
         response.setHeader(accessHeader, accessToken);
         log.info("재발급된 Access Token : {}", accessToken);
@@ -90,6 +102,24 @@ public class JwtService {
      */
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setStatus(HttpServletResponse.SC_OK);
+        log.info("Access Token, Refresh Token 헤더 설정 시작");
+
+
+        Map<String,String> jwtHeader = new HashMap<>();
+        jwtHeader.put("Authorization", accessToken);
+        jwtHeader.put("RefreshToken", refreshToken);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            String result=objectMapper.writeValueAsString(jwtHeader);
+
+            response.getWriter().write(result);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);

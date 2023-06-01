@@ -1,5 +1,6 @@
 package com.pet.petmily.board.entity;
 
+import com.pet.petmily.comment.entity.Comment;
 import com.pet.petmily.user.entity.BaseTimeEntity;
 import com.pet.petmily.user.entity.Member;
 import lombok.AllArgsConstructor;
@@ -7,8 +8,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Fetch;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,7 +35,7 @@ public class Post extends BaseTimeEntity {
     private String imagePath;
 
     @JoinColumn(name = "member_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     @JoinColumn(name = "category_id")
@@ -38,8 +43,14 @@ public class Post extends BaseTimeEntity {
     private Category category;
 
     @JoinColumn(name ="channel_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Channel channel;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
+
+
+
 
 
 }

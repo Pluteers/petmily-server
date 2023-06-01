@@ -8,6 +8,9 @@ import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.board.response.ChannelResponse;
 import com.pet.petmily.board.response.Response;
 import com.pet.petmily.board.service.ChannelService;
+import com.pet.petmily.report.dto.ReportDTO;
+import com.pet.petmily.report.entity.Report;
+import com.pet.petmily.report.repository.ReportRepository;
 import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.repository.MemberRepository;
 
@@ -26,6 +29,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class PostController {
+    private final ReportRepository reportRepository;
     private final PostRepository postRepository;
     private final ChannelRepository channelRepository;
     private final PostService postService;
@@ -232,12 +236,41 @@ public class PostController {
 
     @ApiOperation(value= "좋아요 클릭" ,notes = "해당 postId를 가진 게시물에 좋아요 클릭")
     @PostMapping("/channel/{channelId}/post/{postId}/like")
-    public Response likePost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId){
-        return new Response("좋아요 api 수행","아래의 메세지를 확인해주세요",postService.likePost(channelId,postId));
+    public Response likePost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId) {
+        return new Response("좋아요 api 수행", "아래의 메세지를 확인해주세요", postService.likePost(channelId, postId));
 
 
+    }
+    @ApiOperation(value= "게시글 신고" ,notes = "해당 postId를 가진 게시물에 신고")
+    @PostMapping("/channel/{channelId}/post/{postId}/report")
+    public Response reportPost(@PathVariable("channelId") Long channelId, @PathVariable("postId") Long postId,
+                               @RequestBody Report report, Authentication authentication) {
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+        if(memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            boolean isWriter = postService.isWriter(postId, member.getId());
+            if(isWriter){
+                log.info("게시판 신고 실패");
+                return new Response("신고 실패","자신의 글은 신고할 수 없습니다",null);
+            }
 
+            else{
+
+                log.info("게시판 신고 성공");
+                return new Response("신고 요청","게시물 신고 api 진입",postService.reportPost(postId,member.getId(),report.getContent()));
+            }
         }
+        else {
+            // 존재하지 않는 유저
+            return new Response(
+                    "신고 에러",
+                    "유저가 존재하지 않습니다",
+                    null
+            );
+        }
+
+    }
 
 
 
