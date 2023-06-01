@@ -4,9 +4,11 @@ import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
 import com.pet.petmily.board.entity.Category;
 import com.pet.petmily.board.entity.Channel;
+import com.pet.petmily.board.entity.Favorite;
 import com.pet.petmily.board.entity.Post;
 import com.pet.petmily.board.repository.CategoryRepository;
 import com.pet.petmily.board.repository.ChannelRepository;
+import com.pet.petmily.board.repository.FavoriteRepository;
 import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.board.response.Response;
 import com.pet.petmily.comment.entity.Comment;
@@ -19,6 +21,7 @@ import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,7 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final ReportRepository reportRepository;
     private final MemberRepository memberRepository;
+    private final FavoriteRepository favoriteRepository;
 
     //게시판 전체 조회
     @Transactional(readOnly = true)
@@ -98,7 +102,7 @@ public class PostService {
 
 
     }
-
+    @Transactional
     public PostDTO updatePost(Long channelId, Long id, PostDTO postDto) {
         Optional<Post> postOptional = postRepository.findById(id);
         if (postOptional.isPresent()) {
@@ -117,6 +121,7 @@ public class PostService {
 
     }
 
+    @Transactional
     public Object deletePost(Long channelId, Long id) {
         Optional<Post> postOptional = postRepository.findById(id);
         if (postOptional.isPresent()) {
@@ -202,6 +207,65 @@ public class PostService {
         } else {
             return new ReportResponse<>("false", "해당 게시글이 없습니다.", null,content,null);
         }
+
+    }
+    @Transactional
+    public Object bookmarkPost(Long postId, Member member) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            if(favoriteRepository.findByPostAndMember(post, member).isPresent()){
+                return "실패 : 이미 즐겨찾기에 추가된 게시글입니다.";
+            }
+            Favorite favorite = new Favorite(post, member);
+            favoriteRepository.save(favorite);
+            return "성공 : 즐겨찾기가 추가되었습니다.";
+
+
+        }
+
+        return "실패 : 해당 게시글이 없습니다.";
+    }
+
+    @Transactional
+    public Object deleteBookmarkPost(Long postId, Member member) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            Optional<Favorite> favoriteOptional = favoriteRepository.findByPostAndMember(post, member);
+            if (favoriteOptional.isPresent()) {
+                Favorite favorite = favoriteOptional.get();
+                favoriteRepository.delete(favorite);
+                return "성공 : 즐겨찾기가 삭제되었습니다.";
+            }
+            return "실패 : 즐겨찾기에 추가되지 않은 게시글입니다.";
+        }
+        return "실패 : 해당 게시글이 없습니다.";
+    }
+
+    @JsonIgnore
+    public List<PostDTO> getBookmarkPost(Member member) {
+        List<Favorite> favorites = favoriteRepository.findByMember(member);
+        List<PostDTO> postDTOList = new ArrayList<>();
+        for (Favorite favorite : favorites) {
+            Post post = favorite.getPost();
+            PostDTO postDTO = new PostDTO();
+            postDTO.setCreateDate(post.getCreateDate());
+            postDTO.setLastModifiedDate(post.getLastModifiedDate());
+            postDTO.setId(post.getPostId());
+            postDTO.setTitle(post.getTitle());
+            postDTO.setContent(post.getContent());
+            postDTO.setImagePath(post.getImagePath());
+            postDTO.setLikePost(post.getLikePost());
+            postDTO.setHit(post.getHit());
+
+            postDTO.setChannelId(post.getChannel().getChannelId());
+            postDTO.setMemberId(post.getMember().getId());
+            postDTO.setNickname(post.getMember().getNickname());
+            postDTO.setChannelName(post.getChannel().getChannelName());
+            postDTOList.add(postDTO);
+        }
+        return postDTOList;
 
     }
 
