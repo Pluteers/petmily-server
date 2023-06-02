@@ -63,8 +63,6 @@ g
 7src/main/java/com/pet/petmily/board/entity/Channel.java,8\4\849314d1ca04deaeb395108b5f903f41f4525edb
 y
 Isrc/main/java/com/pet/petmily/user/controller/HeaderReaderController.java,e\1\e1e242b7053cfbbbd0e408d577adeac720f05baf
-g
-7src/main/java/com/pet/petmily/board/dto/ChannelDTO.java,1\2\12a65b0acccf4885a6a05248b239abe5ed034c1f
 j
 :src/main/java/com/pet/petmily/board/response/Response.java,4\e\4e3966411a8bb1dee22870f990d575d9f7b75564
 q
@@ -87,7 +85,13 @@ m
 =src/main/java/com/pet/petmily/user/config/SecurityConfig.java,f\b\fbe5d14d6e33f3f5dc631ee9ff87e4545c38686b
 j
 :src/main/java/com/pet/petmily/user/service/JwtService.java,e\8\e8bb2e7da02b90c74d99189b943d266c948440d5
-h
-8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
 w
 Gsrc/main/java/com/pet/petmily/comment/controller/CommentController.java,7\3\738384c83c37fa8406a5b541109775dc6af5c21f
+r
+Bsrc/main/java/com/pet/petmily/board/repository/PostRepository.java,2\b\2b78c051ba3c2455752d788790209dfef40a21ac
+v
+Fsrc/main/java/com/pet/petmily/board/repository/FavoriteRepository.java,4\7\474fbc4b214f54a147b38337c765b7cdfcd8d5d5
+k
+;src/main/java/com/pet/petmily/s3/config/AmazonS3Config.java,3\6\36b7f58cd8986a009c941391fb9698c0f021c945
+k
+;src/main/java/com/pet/petmily/s3/component/S3Component.java,c\9\c940f4862ac1df39b507e6e47488f1fd75c89052

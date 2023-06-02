@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.pet.petmily.board.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -95,7 +96,7 @@ public class PostController {
 
         }
         else {
-            // Handle the case when member is not found
+
             return new ChannelResponse(
                     "채널 생성 에러",
                     "유저가 존재하지 않습니다",
@@ -282,8 +283,8 @@ public class PostController {
 
     }
     @ApiOperation(value="즐겨찾기 추가", notes="해당 게시글 즐겨찾기")
-    @PostMapping("/channel/{channelId}/post/{postId}/bookmark")
-    public Response bookmarkPost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId,Authentication authentication){
+    @PostMapping("/channel/{channelId}/post/bookmark/{postId}")
+    public Response bookmarkPost(@PathVariable("channelId") Long channelId, @PathVariable("postId") Long postId, Authentication authentication, HttpServletRequest request){
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
         if(memberOptional.isPresent()) {
@@ -311,7 +312,7 @@ public class PostController {
 
     }
     @ApiOperation(value="즐겨찾기 삭제", notes="해당 게시글 즐겨찾기 삭제")
-    @DeleteMapping("/channel/{channelId}/post/{postId}/bookmark")
+    @DeleteMapping("/channel/{channelId}/post/bookmark/{postId}")
     public Response deleteBookmarkPost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId,Authentication authentication){
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());

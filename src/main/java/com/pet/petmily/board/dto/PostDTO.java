@@ -22,11 +22,14 @@ public class PostDTO extends BaseTimeEntity {
     private String title;
     @ApiModelProperty(value = "내용", example = "여기에 글의 내용을 적습니다.")
     private String content;
+    @ApiModelProperty(value = "url", example = "url입니다.")
+    private String url; // url
     private int likePost;
     private long hit;
 
     @ApiModelProperty(value = "이미지 경로", example = "이미지 경로입니다.")
     private String imagePath;
+
     @ApiModelProperty(value = "작성자아이디", example = "작성자 아이디입니다.")
     private Long memberId;
 
@@ -43,6 +46,7 @@ public class PostDTO extends BaseTimeEntity {
     @ApiModelProperty(value = "수정일", example = "수정일입니다.")
     private LocalDateTime lastModifiedDate;
     private int commentCount; // 댓글 수
+
     public static PostDTO toDto(Post post) {
 
         log.info("postDTO todto메소드 호출");
@@ -51,9 +55,12 @@ public class PostDTO extends BaseTimeEntity {
                 post.getPostId(),
                 post.getTitle(),
                 post.getContent(),
+                post.getUrl(),
                 post.getLikePost(),
                 post.getHit(),
+
                 post.getImagePath(),
+
                 post.getMember().getId(),
                 post.getMember().getNickname(),
 
@@ -62,6 +69,8 @@ public class PostDTO extends BaseTimeEntity {
                 post.getCreateDate(),
                 post.getLastModifiedDate(),
                 post.getComments().size());
+
+
     }
 
 

@@ -28,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 ;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,9 +87,12 @@ public class PostService {
         post.setImagePath(postDto.getImagePath());
         post.setStatus(true);
 
+
         post.setChannel(channel);
         post.setLikePost(0);
         post.setHit(1);
+        postRepository.save(post);
+        post.setUrl("http://petmily.duckdns.org/channel/" + channelDTO.getChannelId() + "/post/" + post.getPostId());
         postRepository.save(post);
         return postDto.toDto(post);
     }
@@ -197,6 +202,7 @@ public class PostService {
 
                 reportRepository.save(report);
                 int reportCount = reportRepository.countByPost(post);
+                log.info("reportCount:{}", reportCount);
                 if (reportCount >= 3) {
 
                     deletePost(post.getChannel().getChannelId(), postId);  // DeletePost메소드 호출
@@ -253,21 +259,24 @@ public class PostService {
     }
 
     //즐겨찾기한 게시글 조회
-    @JsonIgnore
+
     public List<PostDTO> getBookmarkPost(Member member) {
         List<Favorite> favorites = favoriteRepository.findByMember(member);
         List<PostDTO> postDTOList = new ArrayList<>();
         for (Favorite favorite : favorites) {
             Post post = favorite.getPost();
             PostDTO postDTO = new PostDTO();
+
             postDTO.setCreateDate(post.getCreateDate());
             postDTO.setLastModifiedDate(post.getLastModifiedDate());
             postDTO.setId(post.getPostId());
             postDTO.setTitle(post.getTitle());
             postDTO.setContent(post.getContent());
+            postDTO.setUrl(post.getUrl());
             postDTO.setImagePath(post.getImagePath());
             postDTO.setLikePost(post.getLikePost());
             postDTO.setHit(post.getHit());
+
 
             postDTO.setChannelId(post.getChannel().getChannelId());
             postDTO.setMemberId(post.getMember().getId());
@@ -292,6 +301,7 @@ public class PostService {
             postDTO.setId(post.getPostId());
             postDTO.setTitle(post.getTitle());
             postDTO.setContent(post.getContent());
+            postDTO.setUrl(post.getUrl());
             postDTO.setImagePath(post.getImagePath());
             postDTO.setLikePost(post.getLikePost());
             postDTO.setHit(post.getHit());

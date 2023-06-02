@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,7 +32,10 @@ public class Favorite {
     private Member member;
 
     @Column(nullable = false)
-    private boolean status; // true = 즐겨찾기, false = 즐겨찾기 취소
+    private boolean status;
+
+
+
 
 
 
@@ -40,6 +44,7 @@ public class Favorite {
         this.post = post;
         this.member = member;
         this.status = true;
+
     }
 
 

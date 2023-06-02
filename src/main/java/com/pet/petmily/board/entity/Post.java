@@ -33,6 +33,7 @@ public class Post extends BaseTimeEntity {
     private int likePost;
     private long hit;
     private String imagePath;
+    private String url;
 
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
