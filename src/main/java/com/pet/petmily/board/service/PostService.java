@@ -2,7 +2,7 @@ package com.pet.petmily.board.service;
 
 import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
-import com.pet.petmily.board.entity.Category;
+
 import com.pet.petmily.board.entity.Channel;
 import com.pet.petmily.board.entity.Favorite;
 import com.pet.petmily.board.entity.Post;
@@ -10,10 +10,10 @@ import com.pet.petmily.board.repository.CategoryRepository;
 import com.pet.petmily.board.repository.ChannelRepository;
 import com.pet.petmily.board.repository.FavoriteRepository;
 import com.pet.petmily.board.repository.PostRepository;
-import com.pet.petmily.board.response.Response;
+
 import com.pet.petmily.comment.entity.Comment;
 import com.pet.petmily.comment.repository.CommentRepository;
-import com.pet.petmily.comment.response.CommentResponse;
+
 import com.pet.petmily.report.ReportResponse;
 import com.pet.petmily.report.entity.Report;
 import com.pet.petmily.report.repository.ReportRepository;
@@ -22,8 +22,10 @@ import com.pet.petmily.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.annotate.JsonIgnore;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 ;
 import java.util.ArrayList;
@@ -60,9 +62,9 @@ public class PostService {
     public PostDTO getPost(Long channelId, Long id) {
 
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다=" + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."));
         if (post.getChannel().getChannelId() != channelId) {
-            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다.");
         }
         post.setHit(post.getHit() + 1);
         log.info("조회수 증가");
@@ -76,7 +78,7 @@ public class PostService {
     public PostDTO writePost(PostDTO postDto, Member member, ChannelDTO channelDTO) {
         Post post = new Post();
         Channel channel = channelRepository.findById(channelDTO.getChannelId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 채널이 없습니다. id=" + channelDTO.getChannelId()));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 채널이 없습니다: ."+channelDTO.getChannelId()));
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setMember(member);
@@ -98,8 +100,8 @@ public class PostService {
             Post post = postOptional.get();
             return post.getMember().getId() == memberId;
         }
-        // Handle the case when the post is not found
-        throw new IllegalArgumentException("Post not found.  postId=" + postId);
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다.");
 
 
     }
@@ -110,7 +112,7 @@ public class PostService {
         if (postOptional.isPresent()) {
             Post post = postOptional.get();
             if (post.getChannel().getChannelId() != channelId) {
-                throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다: "+ id);
             }
             post.setTitle(postDto.getTitle());
             post.setContent(postDto.getContent());
@@ -118,7 +120,7 @@ public class PostService {
             postRepository.save(post);
             return postDto.toDto(post);
         } else {
-            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다.");
         }
 
     }
@@ -130,7 +132,7 @@ public class PostService {
         if (postOptional.isPresent()) {
             Post post = postOptional.get();
             if (post.getChannel().getChannelId() != channelId) {
-                throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다."+id);
             }
             reportRepository.deleteByPost(post);
 
@@ -143,7 +145,7 @@ public class PostService {
             postRepository.delete(post);
             return "삭제되었습니다.";
         } else {
-            throw new IllegalArgumentException("해당 게시글이 없습니다=" + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 게시글이 없습니다.");
         }
     }
 

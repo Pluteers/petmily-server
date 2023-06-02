@@ -51,12 +51,8 @@ l
 Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-k
-;src/main/java/com/pet/petmily/s3/config/AmazonS3Config.java,3\6\36b7f58cd8986a009c941391fb9698c0f021c945
 u
 Esrc/main/java/com/pet/petmily/board/repository/ChannelRepository.java,7\3\73004ab5b7c6d228a9100c42a46933b61c49a580
-k
-;src/main/java/com/pet/petmily/s3/component/S3Component.java,c\9\c940f4862ac1df39b507e6e47488f1fd75c89052
 q
 Asrc/main/java/com/pet/petmily/s3/controller/UploadController.java,e\8\e816cf114bad975bd9b448f83322f1c22fc6f66b
 k
@@ -93,7 +89,5 @@ j
 :src/main/java/com/pet/petmily/user/service/JwtService.java,e\8\e8bb2e7da02b90c74d99189b943d266c948440d5
 h
 8src/main/java/com/pet/petmily/PetmilySubApplication.java,d\1\d13b52f84ed1ecbee4183cfbf8e91c413162de27
-o
-?src/main/java/com/pet/petmily/board/service/ChannelService.java,6\c\6c70ab9b1fda35ba84438dcf376caeebd089aa93
 w
 Gsrc/main/java/com/pet/petmily/comment/controller/CommentController.java,7\3\738384c83c37fa8406a5b541109775dc6af5c21f
