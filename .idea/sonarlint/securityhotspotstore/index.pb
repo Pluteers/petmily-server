@@ -19,8 +19,6 @@ i
 9src/main/java/com/pet/petmily/user/entity/SocialType.java,a\2\a293577e740f02e41ad84b3166cb33b72376e820
 c
 3src/main/java/com/pet/petmily/user/entity/Role.java,7\0\70c2629c39982c614d8e943c25729293bace35dc
-R
-"src/main/resources/application.yml,a\6\a6d8b8556fee0e03112ce2bf34b8cb27a7dc9e58
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 j
