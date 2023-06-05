@@ -27,9 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -223,71 +221,71 @@ public class PostService {
 
     }
     //게시글 즐겨찾기 등록
-    @Transactional
-    public Object bookmarkPost(Long postId, Member member) {
-        Optional<Post> postOptional = postRepository.findById(postId);
-        if (postOptional.isPresent()) {
-            Post post = postOptional.get();
-            if(favoriteRepository.findByPostAndMember(post, member).isPresent()){
-                return "실패 : 이미 즐겨찾기에 추가된 게시글입니다.";
-            }
-            Favorite favorite = new Favorite(post, member);
-            favoriteRepository.save(favorite);
-            return "성공 : 즐겨찾기가 추가되었습니다.";
-
-
-        }
-
-        return "실패 : 해당 게시글이 없습니다.";
-    }
+//    @Transactional
+//    public Object bookmarkPost(Long postId, Member member) {
+//        Optional<Post> postOptional = postRepository.findById(postId);
+//        if (postOptional.isPresent()) {
+//            Post post = postOptional.get();
+//            if(favoriteRepository.findByPostAndMember(post, member).isPresent()){
+//                return "실패 : 이미 즐겨찾기에 추가된 게시글입니다.";
+//            }
+//            Favorite favorite = new Favorite(Channel, member);
+//            favoriteRepository.save(favorite);
+//            return "성공 : 즐겨찾기가 추가되었습니다.";
+//
+//
+//        }
+//
+//        return "실패 : 해당 게시글이 없습니다.";
+//    }
 
     //게시글 즐겨찾기 삭제
-    @Transactional
-    public Object deleteBookmarkPost(Long postId, Member member) {
-        Optional<Post> postOptional = postRepository.findById(postId);
-        if (postOptional.isPresent()) {
-            Post post = postOptional.get();
-            Optional<Favorite> favoriteOptional = favoriteRepository.findByPostAndMember(post, member);
-            if (favoriteOptional.isPresent()) {
-                Favorite favorite = favoriteOptional.get();
-                favoriteRepository.delete(favorite);
-                return "성공 : 즐겨찾기가 삭제되었습니다.";
-            }
-            return "실패 : 즐겨찾기에 추가되지 않은 게시글입니다.";
-        }
-        return "실패 : 해당 게시글이 없습니다.";
-    }
+//    @Transactional
+//    public Object deleteBookmarkPost(Long postId, Member member) {
+//        Optional<Post> postOptional = postRepository.findById(postId);
+//        if (postOptional.isPresent()) {
+//            Post post = postOptional.get();
+//            Optional<Favorite> favoriteOptional = favoriteRepository.findByPostAndMember(post, member);
+//            if (favoriteOptional.isPresent()) {
+//                Favorite favorite = favoriteOptional.get();
+//                favoriteRepository.delete(favorite);
+//                return "성공 : 즐겨찾기가 삭제되었습니다.";
+//            }
+//            return "실패 : 즐겨찾기에 추가되지 않은 게시글입니다.";
+//        }
+//        return "실패 : 해당 게시글이 없습니다.";
+//    }
 
     //즐겨찾기한 게시글 조회
 
-    public List<PostDTO> getBookmarkPost(Member member) {
-        List<Favorite> favorites = favoriteRepository.findByMember(member);
-        List<PostDTO> postDTOList = new ArrayList<>();
-        for (Favorite favorite : favorites) {
-            Post post = favorite.getPost();
-            PostDTO postDTO = new PostDTO();
-
-            postDTO.setCreateDate(post.getCreateDate());
-            postDTO.setLastModifiedDate(post.getLastModifiedDate());
-            postDTO.setId(post.getPostId());
-            postDTO.setTitle(post.getTitle());
-            postDTO.setContent(post.getContent());
-            postDTO.setUrl(post.getUrl());
-            postDTO.setImagePath(post.getImagePath());
-            postDTO.setLikePost(post.getLikePost());
-            postDTO.setHit(post.getHit());
-
-
-            postDTO.setChannelId(post.getChannel().getChannelId());
-            postDTO.setMemberId(post.getMember().getId());
-            postDTO.setNickname(post.getMember().getNickname());
-            postDTO.setChannelName(post.getChannel().getChannelName());
-            postDTO.setCommentCount(post.getComments().size());
-            postDTOList.add(postDTO);
-        }
-        return postDTOList;
-
-    }
+//    public List<PostDTO> getBookmarkPost(Member member) {
+//        List<Favorite> favorites = favoriteRepository.findByMember(member);
+//        List<PostDTO> postDTOList = new ArrayList<>();
+//        for (Favorite favorite : favorites) {
+//            Post post = favorite.getPost();
+//            PostDTO postDTO = new PostDTO();
+//
+//            postDTO.setCreateDate(post.getCreateDate());
+//            postDTO.setLastModifiedDate(post.getLastModifiedDate());
+//            postDTO.setId(post.getPostId());
+//            postDTO.setTitle(post.getTitle());
+//            postDTO.setContent(post.getContent());
+//            postDTO.setUrl(post.getUrl());
+//            postDTO.setImagePath(post.getImagePath());
+//            postDTO.setLikePost(post.getLikePost());
+//            postDTO.setHit(post.getHit());
+//
+//
+//            postDTO.setChannelId(post.getChannel().getChannelId());
+//            postDTO.setMemberId(post.getMember().getId());
+//            postDTO.setNickname(post.getMember().getNickname());
+//            postDTO.setChannelName(post.getChannel().getChannelName());
+//            postDTO.setCommentCount(post.getComments().size());
+//            postDTOList.add(postDTO);
+//        }
+//        return postDTOList;
+//
+//    }
 
 
     //내가 쓴 게시글 조회

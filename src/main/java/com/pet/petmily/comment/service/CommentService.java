@@ -8,8 +8,10 @@ import com.pet.petmily.user.repository.MemberRepository;
 import com.pet.petmily.comment.repository.CommentRepository;
 import com.pet.petmily.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -88,5 +90,20 @@ public class CommentService {
 
         }
         throw new IllegalArgumentException("없는 댓글입니다: " + commentId);
+    }
+
+    public List<CommentDTO> getMyCommentList(long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "없는 회원입니다: " + id));
+        List<Comment> comments = commentRepository.findByMemberOrderByCreateDateAsc(member);
+
+        return comments.stream()
+                .map(comment -> {
+                    CommentDTO commentDTO = CommentDTO.toDto(comment);
+                    String nickname = comment.getMember().getNickname();
+                    commentDTO.setNickname(nickname);
+                    return commentDTO;
+                })
+                .collect(Collectors.toList());
     }
 }

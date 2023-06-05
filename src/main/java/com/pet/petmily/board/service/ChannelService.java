@@ -2,10 +2,13 @@ package com.pet.petmily.board.service;
 
 import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.entity.Channel;
+import com.pet.petmily.board.entity.Favorite;
 import com.pet.petmily.board.entity.Post;
 import com.pet.petmily.board.repository.CategoryRepository;
 import com.pet.petmily.board.repository.ChannelRepository;
+import com.pet.petmily.board.repository.FavoriteRepository;
 import com.pet.petmily.board.repository.PostRepository;
+import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +29,7 @@ public class ChannelService {
     private final ChannelRepository channelRepository;
     private final CategoryRepository categoryRepository;
     private final PostRepository postRepository;
+    private final FavoriteRepository favoriteRepository;
     public ChannelDTO getChannelById(Long channelId) {
         return ChannelDTO.toDto(channelRepository.findById(channelId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"채널이 없습니다.")));
 
@@ -46,6 +50,9 @@ public class ChannelService {
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 카테고리가 없습니다: "+channelDto.getCategoryId())));
         channel.setMember(memberRepository.findById(memberId)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 유저가 없습니다.: "+memberId)));
+
+        channelRepository.save(channel);
+        channel.setUrl("http://petmily.duckdns.org/channel/" + channel.getChannelId());
         channelRepository.save(channel);
         return ChannelDTO.toDto(channel);
     }
@@ -113,5 +120,55 @@ public class ChannelService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"채널을 찾을 수 없습니다. channelId=" + channelId);
         }
     }
+    //채널 즐겨찾기 등록
+    @Transactional
+    public Object bookmarkChannel(Long postId, Member member) {
+        Optional<Channel> channelOptional = channelRepository.findById(postId);
+        if (channelOptional.isPresent()) {
+            Channel channel= channelOptional.get();
+            if(favoriteRepository.findByChannelAndMember(channel, member).isPresent()){
+                return "실패 : 이미 즐겨찾기에 추가된 채널입니다.";
+            }
+            Favorite favorite = new Favorite(channel, member);
+            favoriteRepository.save(favorite);
+            return "성공 : 즐겨찾기가 추가되었습니다.";
+
+
+        }
+
+        return "실패 : 해당 게시글이 없습니다.";
+    }
+    //게시글 즐겨찾기 삭제
+    @Transactional
+    public Object deleteBookmarkChannel(Long ChannelId, Member member) {
+        Optional<Channel> channelOptional= channelRepository.findById(ChannelId);
+        if (channelOptional.isPresent()) {
+            Channel channel = channelOptional.get();
+            Optional<Favorite> favoriteOptional=favoriteRepository.findByChannelAndMember(channel, member);
+            if (favoriteOptional.isPresent()) {
+                Favorite favorite = favoriteOptional.get();
+                favoriteRepository.delete(favorite);
+                return "성공 : 즐겨찾기가 삭제되었습니다.";
+            }
+            return "실패 : 즐겨찾기에 추가되지 않은 게시글입니다.";
+        }
+        return "실패 : 해당 게시글이 없습니다.";
+    }
+    @Transactional
+    public List<ChannelDTO> getBookmarkChannel(Member member) {
+        List<Favorite> favorites = favoriteRepository.findAllByMember(member);
+        List<ChannelDTO> channelDtos = new ArrayList<>();
+        favorites.forEach(s -> channelDtos.add(ChannelDTO.toDto(s.getChannel())));
+        return channelDtos;
+    }
+
+    @Transactional
+    public List<ChannelDTO> getMyChannel(Member member) {
+        List<Channel> channels = channelRepository.findAllByMember(member);
+        List<ChannelDTO> channelDtos = new ArrayList<>();
+        channels.forEach(s -> channelDtos.add(ChannelDTO.toDto(s)));
+        return channelDtos;
+    }
+
 }
 

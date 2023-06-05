@@ -22,9 +22,9 @@ public class Favorite {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "channel_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Post post;
+    private Channel channel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -39,9 +39,9 @@ public class Favorite {
 
 
 
-    public Favorite(Post post, Member member) {
+    public Favorite(Channel channel, Member member) {
 
-        this.post = post;
+        this.channel= channel;
         this.member = member;
         this.status = true;
 

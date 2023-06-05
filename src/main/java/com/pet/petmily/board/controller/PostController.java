@@ -46,6 +46,15 @@ public class PostController {
         return new Response("조회 성공","내가 쓴 게시글 조회",postService.getMyPost(member));
 
     }
+    @ApiOperation(value = "내가 생성한 채널 조회", notes = "내가 생성한 채널 조회")
+    @GetMapping("/channel/mypage")
+    public Response getMyChannel(Authentication authentication) {
+        log.info("내가 생성한 채널 조회");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Member member = memberRepository.findByEmail(userDetails.getUsername()).get();
+        return new Response("조회 성공","내가 생성한 채널 조회",channelService.getMyChannel(member));
+
+    }
 
     @ApiOperation(value = "게시판 전체 조회", notes = "게시판 전체 조회")
     @GetMapping("/channel/{channelId}/post")
@@ -282,14 +291,14 @@ public class PostController {
         }
 
     }
-    @ApiOperation(value="즐겨찾기 추가", notes="해당 게시글 즐겨찾기")
-    @PostMapping("/channel/{channelId}/post/bookmark/{postId}")
-    public Response bookmarkPost(@PathVariable("channelId") Long channelId, @PathVariable("postId") Long postId, Authentication authentication, HttpServletRequest request){
+    @ApiOperation(value="즐겨찾기 추가", notes="해당 channelId 즐겨찾기 추가")
+    @PostMapping("/channel/{channelId}/bookmark")
+    public Response bookmarkPost(@PathVariable("channelId") Long channelId,  Authentication authentication, HttpServletRequest request){
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
         if(memberOptional.isPresent()) {
             Member member = memberOptional.get();
-            boolean isWriter = postService.isWriter(postId, member.getId());
+            boolean isWriter = channelService.isWriter(channelId, member.getId());
             if(isWriter){
                 log.info("게시판 즐겨찾기 실패");
                 return new Response("즐겨찾기 실패","자신의 글은 즐겨찾기할 수 없습니다",null);
@@ -298,7 +307,7 @@ public class PostController {
             else{
 
                 log.info("게시판 즐겨찾기 성공");
-                return new Response("즐겨찾기 요청","게시물 즐겨찾기 api 진입",postService.bookmarkPost(postId,member));
+                return new Response("즐겨찾기 요청","게시물 즐겨찾기 api 진입",channelService.bookmarkChannel(channelId,member));
             }
         }
         else {
@@ -312,13 +321,13 @@ public class PostController {
 
     }
     @ApiOperation(value="즐겨찾기 삭제", notes="해당 게시글 즐겨찾기 삭제")
-    @DeleteMapping("/channel/{channelId}/post/bookmark/{postId}")
-    public Response deleteBookmarkPost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId,Authentication authentication){
+    @DeleteMapping("/channel/{channelId}/bookmark")
+    public Response deleteBookmarkPost(@PathVariable("channelId") Long channelId,Authentication authentication){
         UserDetails userDetails=(UserDetails)authentication.getPrincipal();
         Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
         if(memberOptional.isPresent()) {
             Member member = memberOptional.get();
-            boolean isWriter = postService.isWriter(postId, member.getId());
+            boolean isWriter = channelService.isWriter(channelId, member.getId());
             if(isWriter){
                 log.info("게시판 즐겨찾기 삭제 실패");
                 return new Response("즐겨찾기 삭제 실패","자신의 글은 즐겨찾기할 수 없습니다",null);
@@ -327,7 +336,7 @@ public class PostController {
             else{
 
                 log.info("게시판 즐겨찾기 삭제 성공");
-                return new Response("즐겨찾기 삭제 요청","게시물 즐겨찾기 삭제 api 진입",postService.deleteBookmarkPost(postId,member));
+                return new Response("즐겨찾기 삭제 요청","게시물 즐겨찾기 삭제 api 진입",channelService.deleteBookmarkChannel(channelId,member));
             }
         }
         else {
@@ -352,7 +361,7 @@ public class PostController {
 
 
             log.info("게시판 즐겨찾기 조회 성공");
-            return new Response("즐겨찾기 조회 요청","게시물 즐겨찾기 조회 api 진입",postService.getBookmarkPost(member));
+            return new Response("즐겨찾기 조회 요청","게시물 즐겨찾기 조회 api 진입",channelService.getBookmarkChannel(member));
 
         }
         else {

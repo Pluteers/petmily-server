@@ -31,4 +31,6 @@ public class Channel  {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    private String url;
+
 }
