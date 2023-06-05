@@ -40,7 +40,7 @@ public class ScrapController {
                 return ResponseEntity.ok(response);
             } catch (Exception e) {
                 log.error("게시글 스크랩 실패", e);
-                ScrapResponse<String> response = new ScrapResponse<>("error", "게시글 스크랩에 실패하였습니다.", null, null);
+                ScrapResponse<String> response = new ScrapResponse<>("error", "게시글 스크랩에 실패하였습니다.", null, e.getMessage());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
             }
         } else {
@@ -64,7 +64,7 @@ public class ScrapController {
                 return ResponseEntity.ok(response);
             } catch (Exception e) {
                 log.error("게시글 스크랩 취소 실패", e);
-                ScrapResponse<String> response = new ScrapResponse<>("error", "게시글 스크랩 취소에 실패하였습니다.", null, null);
+                ScrapResponse<String> response = new ScrapResponse<>("error", "게시글 스크랩 취소에 실패하였습니다.", null, e.getMessage());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
             }
         } else {
