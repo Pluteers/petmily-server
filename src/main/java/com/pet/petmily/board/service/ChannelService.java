@@ -9,8 +9,10 @@ import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class ChannelService {
     private final CategoryRepository categoryRepository;
     private final PostRepository postRepository;
     public ChannelDTO getChannelById(Long channelId) {
-        return ChannelDTO.toDto(channelRepository.findById(channelId).orElseThrow(()->new IllegalArgumentException("해당 채널이 없습니다. id="+channelId)));
+        return ChannelDTO.toDto(channelRepository.findById(channelId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"채널이 없습니다.")));
 
     }
     //채널 조회
@@ -41,9 +43,9 @@ public class ChannelService {
         Channel channel=new Channel();
         channel.setChannelName(channelDto.getChannelName());
         channel.setCategory(categoryRepository.findById(channelDto.getCategoryId())
-                .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+channelDto.getCategoryId())));
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 카테고리가 없습니다: "+channelDto.getCategoryId())));
         channel.setMember(memberRepository.findById(memberId)
-                .orElseThrow(()->new IllegalArgumentException("해당 멤버가 없습니다. id="+memberId)));
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 유저가 없습니다.: "+memberId)));
         channelRepository.save(channel);
         return ChannelDTO.toDto(channel);
     }
@@ -67,10 +69,10 @@ public class ChannelService {
 
                 return "채널 삭제 성공";
             } else {
-                throw new IllegalArgumentException("당신은 채널 크리에이터가 아닙니다");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,"당신은 채널 크리에이터가 아닙니다");
             }
         } else {
-            throw new IllegalArgumentException("채널을 찾을 수 없습니다. channelId=" + channelId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"채널을 찾을 수 없습니다. channelId=" + channelId);
         }
     }
 
@@ -84,15 +86,15 @@ public class ChannelService {
             if (channel.getMember().getId()==id) {
                 channel.setChannelName(channelDTO.getChannelName());
                 channel.setCategory(categoryRepository.findById(channelDTO.getCategoryId())
-                        .orElseThrow(()->new IllegalArgumentException("해당 카테고리가 없습니다. id="+channelDTO.getCategoryId())));
+                        .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"해당 카테고리가 없습니다: "+channelDTO.getCategoryId())));
                 channelRepository.save(channel);
 
                 return ChannelDTO.toDto(channel);
             } else {
-                throw new IllegalArgumentException("당신은 채널 크리에이터가 아닙니다");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,"당신은 채널 크리에이터가 아닙니다");
             }
         } else {
-            throw new IllegalArgumentException("채널을 찾을 수 없습니다. channelId=" + channelId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"채널을 찾을 수 없습니다. channelId=" + channelId);
         }
     }
 
@@ -108,7 +110,7 @@ public class ChannelService {
                 return false;
             }
         } else {
-            throw new IllegalArgumentException("채널을 찾을 수 없습니다. channelId=" + channelId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"채널을 찾을 수 없습니다. channelId=" + channelId);
         }
     }
 }

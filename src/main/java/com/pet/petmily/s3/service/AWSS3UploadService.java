@@ -7,7 +7,9 @@ import com.amazonaws.util.IOUtils;
 import com.pet.petmily.s3.component.S3Component;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +54,7 @@ public class AWSS3UploadService implements UploadService {
         try {
             return IOUtils.toByteArray(objectInputStream);
         } catch (IOException e) {
-            throw new RuntimeException("파일 다운로드 실패: " + fileName, e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일을 읽는데 실패했습니다: "+e.getMessage());
         } finally {
             if (objectInputStream != null) {
                 try {

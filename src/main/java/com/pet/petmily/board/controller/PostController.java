@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.pet.petmily.board.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -35,6 +36,16 @@ public class PostController {
     private final PostService postService;
     private final ChannelService channelService;
     private final MemberRepository memberRepository;
+
+    @ApiOperation(value = "내가 쓴 게시글 조회", notes = "내가 쓴 게시글 조회")
+    @GetMapping("/post/mypage")
+    public Response getMyPost(Authentication authentication) {
+        log.info("내가 쓴 게시글 조회");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Member member = memberRepository.findByEmail(userDetails.getUsername()).get();
+        return new Response("조회 성공","내가 쓴 게시글 조회",postService.getMyPost(member));
+
+    }
 
     @ApiOperation(value = "게시판 전체 조회", notes = "게시판 전체 조회")
     @GetMapping("/channel/{channelId}/post")
@@ -85,7 +96,7 @@ public class PostController {
 
         }
         else {
-            // Handle the case when member is not found
+
             return new ChannelResponse(
                     "채널 생성 에러",
                     "유저가 존재하지 않습니다",
@@ -265,6 +276,89 @@ public class PostController {
             // 존재하지 않는 유저
             return new Response(
                     "신고 에러",
+                    "유저가 존재하지 않습니다",
+                    null
+            );
+        }
+
+    }
+    @ApiOperation(value="즐겨찾기 추가", notes="해당 게시글 즐겨찾기")
+    @PostMapping("/channel/{channelId}/post/bookmark/{postId}")
+    public Response bookmarkPost(@PathVariable("channelId") Long channelId, @PathVariable("postId") Long postId, Authentication authentication, HttpServletRequest request){
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+        if(memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            boolean isWriter = postService.isWriter(postId, member.getId());
+            if(isWriter){
+                log.info("게시판 즐겨찾기 실패");
+                return new Response("즐겨찾기 실패","자신의 글은 즐겨찾기할 수 없습니다",null);
+            }
+
+            else{
+
+                log.info("게시판 즐겨찾기 성공");
+                return new Response("즐겨찾기 요청","게시물 즐겨찾기 api 진입",postService.bookmarkPost(postId,member));
+            }
+        }
+        else {
+            // 존재하지 않는 유저
+            return new Response(
+                    "즐겨찾기 에러",
+                    "유저가 존재하지 않습니다",
+                    null
+            );
+        }
+
+    }
+    @ApiOperation(value="즐겨찾기 삭제", notes="해당 게시글 즐겨찾기 삭제")
+    @DeleteMapping("/channel/{channelId}/post/bookmark/{postId}")
+    public Response deleteBookmarkPost(@PathVariable("channelId") Long channelId,@PathVariable("postId") Long postId,Authentication authentication){
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+        if(memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            boolean isWriter = postService.isWriter(postId, member.getId());
+            if(isWriter){
+                log.info("게시판 즐겨찾기 삭제 실패");
+                return new Response("즐겨찾기 삭제 실패","자신의 글은 즐겨찾기할 수 없습니다",null);
+            }
+
+            else{
+
+                log.info("게시판 즐겨찾기 삭제 성공");
+                return new Response("즐겨찾기 삭제 요청","게시물 즐겨찾기 삭제 api 진입",postService.deleteBookmarkPost(postId,member));
+            }
+        }
+        else {
+            // 존재하지 않는 유저
+            return new Response(
+                    "즐겨찾기 삭제 에러",
+                    "유저가 존재하지 않습니다",
+                    null
+            );
+        }
+
+    }
+    @ApiOperation(value="즐겨찾기 조회", notes="내가 등록한 즐겨찾기 조회")
+    @GetMapping("/bookmark")
+    public Response getBookmarkPost( Authentication authentication){
+        UserDetails userDetails=(UserDetails)authentication.getPrincipal();
+        Optional<Member> memberOptional = memberRepository.findByEmail(userDetails.getUsername());
+        if(memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+
+
+
+
+            log.info("게시판 즐겨찾기 조회 성공");
+            return new Response("즐겨찾기 조회 요청","게시물 즐겨찾기 조회 api 진입",postService.getBookmarkPost(member));
+
+        }
+        else {
+            // 존재하지 않는 유저
+            return new Response(
+                    "즐겨찾기 조회 에러",
                     "유저가 존재하지 않습니다",
                     null
             );
