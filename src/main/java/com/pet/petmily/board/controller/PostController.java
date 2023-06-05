@@ -122,7 +122,7 @@ public class PostController {
                 return new Response("채널 수정 성공", "채널 수정 성공", channelService.updateChannel(channelId, channelDTO, member.getId()));
         }
         else {
-            // Handle the case when member is not found
+
             return new Response(
                     "채널 수정 에러",
                     "유저가 존재하지 않습니다",

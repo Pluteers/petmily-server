@@ -27,7 +27,7 @@ public class CommentService {
     //댓글 목록 조회
     public List<CommentDTO> getCommentListByPost(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 게시물입니다." + postId));
+                .orElseThrow(() -> new IllegalArgumentException("없는 게시물입니다: " + postId));
         List<Comment> comments = commentRepository.findByPostOrderByCreateDateAsc(post);
 
         return comments.stream()
@@ -43,7 +43,7 @@ public class CommentService {
     //댓글 작성
     public CommentDTO addComment(Long postId, CommentDTO commentDTO,Member member) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. " + postId));
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다: " + postId));
 
 
         Comment comment = new Comment();
@@ -59,13 +59,13 @@ public class CommentService {
     //댓글 삭제
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다." + commentId));
+                .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다: " + commentId));
         commentRepository.delete(comment);
     }
     // 댓글 수정
     public CommentDTO updateComment(Long commentId, CommentDTO commentDTO) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다." + commentId));
+                .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다: " + commentId));
         comment.setContent(commentDTO.getContent());
         commentRepository.save(comment);
         return CommentDTO.toDto(comment);
@@ -74,7 +74,7 @@ public class CommentService {
     //댓글 좋아요
     public void likeComment(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다." + commentId));
+                .orElseThrow(() -> new IllegalArgumentException("없는 댓글입니다: " + commentId));
         comment.setCommentLike(comment.getCommentLike() + 1);
         commentRepository.save(comment);
     }
@@ -87,6 +87,6 @@ public class CommentService {
             return comment.getMember().getId()==memberId;
 
         }
-        throw new IllegalArgumentException("없는 댓글입니다." + commentId);
+        throw new IllegalArgumentException("없는 댓글입니다: " + commentId);
     }
 }

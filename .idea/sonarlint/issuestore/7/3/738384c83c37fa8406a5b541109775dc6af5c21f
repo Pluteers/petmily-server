@@ -6,9 +6,9 @@ java:S3740v"/Provide the parametrized type for this generic.(óºœ»ÿÿÿÿÿ
 p
 java:S1192x"UDefine a constant instead of duplicating this literal "ëŒ“ê¸€ ìˆ˜ì • ì‹¤íŒ¨" 5 times.(ØÜÀ§ûÿÿÿÿ
 k
-java:S36556"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä…ÔŠüÿÿÿÿ
-k
 java:S36558"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(·î……ùÿÿÿÿ
+k
+java:S36556"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä…ÔŠüÿÿÿÿ
 X
 java:S1854;"BRemove this useless assignment to local variable "createdComment".(­ÒãÓ
 I
