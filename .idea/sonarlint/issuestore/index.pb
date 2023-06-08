@@ -15,16 +15,8 @@ s
 Csrc/main/java/com/pet/petmily/user/repository/MemberRepository.java,c\e\ce31a3bf7d2fc85abffb91f256bd327e7c79f699
 i
 9src/main/java/com/pet/petmily/user/util/PasswordUtil.java,4\1\41c466ff36dfb74e7f80d63d68c6f21eb32e92f6
-i
-9src/main/java/com/pet/petmily/user/entity/SocialType.java,a\2\a293577e740f02e41ad84b3166cb33b72376e820
-c
-3src/main/java/com/pet/petmily/user/entity/Role.java,7\0\70c2629c39982c614d8e943c25729293bace35dc
-R
-"src/main/resources/application.yml,a\6\a6d8b8556fee0e03112ce2bf34b8cb27a7dc9e58
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
-j
-:src/main/java/com/pet/petmily/user/dto/MemberLoginDTO.java,2\e\2ee3ae710326e74d86dabf521d2ba14d18b250b5
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
@@ -34,12 +26,6 @@ h
 8src/main/java/com/pet/petmily/s3/util/MultipartUtil.java,2\7\2714a284f827f15426dce6f876f1db0523cab69b
 g
 7src/main/java/com/pet/petmily/config/SwaggerConfig.java,a\a\aa8920688894f53a31a9914600b808d5a234bcd7
-m
-=src/main/java/com/pet/petmily/user/service/MemberService.java,3\a\3a55035536c7e86eed8fed2370c693f1fe8ed240
-e
-5src/main/java/com/pet/petmily/user/entity/Member.java,f\1\f1d4eb98942495766a60d479ad6ec619d5680e0f
-k
-;src/main/java/com/pet/petmily/user/dto/MemberUpdateDTO.java,a\4\a451945476eb98e63cd4362bb2ae6338679be46a
 a
 1src/main/java/com/pet/petmily/s3/dto/FileDTO.java,5\d\5d2b7aaf1c470d37eee453d9fea4557a90b105a6
 l
@@ -58,20 +44,14 @@ s
 Csrc/main/java/com/pet/petmily/user/handler/LoginSuccessHandler.java,3\0\300c6fd3e29b1ce476161b74c2746089e32ef96e
 €
 Psrc/main/java/com/pet/petmily/user/filter/JwtAuthenticationProcessingFilter.java,0\b\0bf0781a6ebbb0d036acd2ede922267b4802188f
-s
-Csrc/main/java/com/pet/petmily/user/controller/MemberController.java,d\a\da365fa07cdc51f5f4e83ed607c97ac43aa7c450
 €
 Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginSuccessHandler.java,1\7\17f92b465e5fd8e319c3a030c56b64c9a5cfa2f6
-k
-;src/main/java/com/pet/petmily/user/dto/MemberSignUpDto.java,9\7\970455ee8d9d761c108f9598d124192ae456dc84
 m
 =src/main/java/com/pet/petmily/user/config/SecurityConfig.java,f\b\fbe5d14d6e33f3f5dc631ee9ff87e4545c38686b
 j
 :src/main/java/com/pet/petmily/user/service/JwtService.java,e\8\e8bb2e7da02b90c74d99189b943d266c948440d5
 k
 ;src/main/java/com/pet/petmily/s3/config/AmazonS3Config.java,3\6\36b7f58cd8986a009c941391fb9698c0f021c945
-k
-;src/main/java/com/pet/petmily/s3/component/S3Component.java,c\9\c940f4862ac1df39b507e6e47488f1fd75c89052
 p
 @src/main/java/com/pet/petmily/s3/service/AWSS3UploadService.java,d\c\dc10d3bccc6d3d27e60ca96e74617e80af42bed5
 h
@@ -92,3 +72,5 @@ s
 Csrc/main/java/com/pet/petmily/exception/GlobalExceptionHandler.java,e\8\e8c95d53f26a65ecf29f952f4d451161ed5649b9
 j
 :src/main/java/com/pet/petmily/exception/ErrorResponse.java,8\1\813ee55fc1d0713da84ca76691b05170252d96fe
+c
+3src/main/java/com/pet/petmily/user/entity/Role.java,7\0\70c2629c39982c614d8e943c25729293bace35dc

@@ -6,13 +6,16 @@ import com.pet.petmily.user.entity.Member;
 import com.pet.petmily.user.entity.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.pet.petmily.user.repository.MemberRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -30,11 +33,15 @@ public class MemberService {
 
         if(memberRepository.findByEmail(memberSignUpDto.getEmail()).isPresent()){
 
-            throw new Exception("이미 존재하는 이메일입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"BAD_REQUEST:이미 존재하는 이메일입니다.");
         }
         if(memberRepository.findByNickname(memberSignUpDto.getNickname()).isPresent()){
-            throw new Exception("이미 존재하는 닉네임입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"BAD_REQUEST:이미 존재하는 닉네임입니다.");
         }
+        if(Objects.isNull(memberSignUpDto.getEmail())||Objects.isNull(memberSignUpDto.getNickname())||Objects.isNull(memberSignUpDto.getPassword())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"BAD_REQUEST:필수 입력값이 없습니다:email,nickname,password");
+        }
+
         log.info("회원가입 요청");
         Member member= Member.builder()
                 .email(memberSignUpDto.getEmail())
@@ -69,7 +76,20 @@ public class MemberService {
     @Transactional
     public void updateMember(String email,MemberUpdateDTO memberUpdateDTO) throws Exception{
         Member member=memberRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("해당 이메일이 존재하지 않습니다."));
-        member.updateMember(memberUpdateDTO);
+        if(memberUpdateDTO.getNickname()!=null){
+            if(memberRepository.findByEmail(memberUpdateDTO.getEmail()).isPresent()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"BAD_REQUEST:이미 존재하는 이메일입니다.");
+            }
+            if(memberRepository.findByNickname(memberUpdateDTO.getNickname()).isPresent()){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"BAD_REQUEST:이미 존재하는 닉네임입니다.");
+            }
+
+            member.setNickname(memberUpdateDTO.getNickname());
+            member.setEmail(memberUpdateDTO.getEmail());
+            member.setPassword(passwordEncoder.encode(memberUpdateDTO.getPassword()));
+            member.setLastModifiedDate(LocalDateTime.now());
+            memberRepository.save(member);
+        }
 
 
     }

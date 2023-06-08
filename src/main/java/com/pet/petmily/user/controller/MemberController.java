@@ -48,6 +48,7 @@ public class MemberController extends BaseTimeEntity {
         LocalDateTime createDate=memberService.getCreateDate(email);
         memberLoginDTO.setEmail(email);
         memberLoginDTO.setNickname(nickName);
+        memberLoginDTO.setPassword("비밀번호는 보안상 알 수 없습니다.");
         memberLoginDTO.setCreateDate(createDate);
 
         return memberLoginDTO;
