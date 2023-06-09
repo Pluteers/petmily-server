@@ -106,4 +106,13 @@ public class MemberService {
     }
 
 
+    @Transactional
+    public ResponseEntity checkNickname(String nickname) {
+        if(memberRepository.findByNickname(nickname).isPresent()){
+            return new ResponseEntity("이미 존재하는 닉네임입니다.",HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity("사용 가능한 닉네임입니다.",HttpStatus.OK);
+        }
+    }
 }

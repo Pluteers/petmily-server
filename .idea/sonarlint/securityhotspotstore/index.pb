@@ -42,8 +42,6 @@ Csrc/main/java/com/pet/petmily/user/handler/LoginSuccessHandler.java,3\0\300c6f
 Psrc/main/java/com/pet/petmily/user/filter/JwtAuthenticationProcessingFilter.java,0\b\0bf0781a6ebbb0d036acd2ede922267b4802188f
 €
 Psrc/main/java/com/pet/petmily/user/oauth2/handler/OAuth2LoginSuccessHandler.java,1\7\17f92b465e5fd8e319c3a030c56b64c9a5cfa2f6
-m
-=src/main/java/com/pet/petmily/user/config/SecurityConfig.java,f\b\fbe5d14d6e33f3f5dc631ee9ff87e4545c38686b
 j
 :src/main/java/com/pet/petmily/user/service/JwtService.java,e\8\e8bb2e7da02b90c74d99189b943d266c948440d5
 k
