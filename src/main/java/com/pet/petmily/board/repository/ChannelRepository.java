@@ -14,4 +14,6 @@ public interface ChannelRepository extends JpaRepository<Channel, Long> {
 
 
     List<Channel> findAllByMember(Member member);
+
+    List<Channel> findAllByChannelNameContaining(String query);
 }

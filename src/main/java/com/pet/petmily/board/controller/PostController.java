@@ -3,6 +3,7 @@ package com.pet.petmily.board.controller;
 import com.pet.petmily.board.dto.ChannelDTO;
 import com.pet.petmily.board.dto.PostDTO;
 import com.pet.petmily.board.entity.Channel;
+import com.pet.petmily.board.entity.Post;
 import com.pet.petmily.board.repository.ChannelRepository;
 import com.pet.petmily.board.repository.PostRepository;
 import com.pet.petmily.board.response.ChannelResponse;
@@ -17,13 +18,19 @@ import com.pet.petmily.user.repository.MemberRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.pet.petmily.board.service.PostService;
+import org.springframework.security.crypto.codec.Utf8;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -373,6 +380,42 @@ public class PostController {
             );
         }
 
+    }
+    @ApiOperation(value = "게시판 검색", notes = "게시판 검색")
+    @GetMapping("/post/search")
+    public List<PostDTO> searchPosts(@RequestParam("query") String query) {
+       try {
+           log.info("게시판 검색 api 진입");
+           log.info("검색어 : " + query);
+
+
+           List<Post> foundPosts = postService.searchPosts(query);
+
+           List<PostDTO> postDTOs = new ArrayList<>();
+           for (Post post : foundPosts) {
+               PostDTO postDTO = PostDTO.toDto(post);
+               postDTOs.add(postDTO);
+           }
+
+
+           return postDTOs;
+       }catch (Exception e){
+        log.info("게시판 검색 실패");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+
+       }
+    }
+
+    @ApiOperation(value = "채널 이름 검색", notes = "채널 이름 검색")
+    @GetMapping("/channel/search")
+    public List<ChannelDTO> searchChannels(@RequestParam("query") String query) {
+        List<Channel> foundChannels = channelService.searchChannels(query);
+        List<ChannelDTO> channelDTOs = new ArrayList<>();
+        for (Channel channel : foundChannels) {
+            ChannelDTO channelDTO = ChannelDTO.toDto(channel);
+            channelDTOs.add(channelDTO);
+        }
+        return channelDTOs;
     }
 
 

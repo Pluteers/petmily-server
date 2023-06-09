@@ -170,5 +170,8 @@ public class ChannelService {
         return channelDtos;
     }
 
+    public List<Channel> searchChannels(String query) {
+        return channelRepository.findAllByChannelNameContaining(query);
+    }
 }
 

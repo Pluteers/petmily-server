@@ -7,6 +7,7 @@ import com.pet.petmily.user.entity.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,7 @@ public class MemberService {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"BAD_REQUEST:이미 존재하는 닉네임입니다.");
             }
 
+
             member.setNickname(memberUpdateDTO.getNickname());
             member.setEmail(memberUpdateDTO.getEmail());
             member.setPassword(passwordEncoder.encode(memberUpdateDTO.getPassword()));
@@ -92,6 +94,15 @@ public class MemberService {
         }
 
 
+    }
+    @Transactional
+    public ResponseEntity checkEmail(String email) throws Exception{
+        if(memberRepository.findByEmail(email).isPresent()){
+            return new ResponseEntity("이미 존재하는 이메일입니다.",HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity("사용 가능한 이메일입니다.",HttpStatus.OK);
+        }
     }
 
 

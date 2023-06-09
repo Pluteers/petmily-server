@@ -313,4 +313,8 @@ public class PostService {
         }
         return postDTOList;
     }
+    @Transactional
+    public List<Post> searchPosts(String query) {
+        return postRepository.findByTitleContaining(query);
+    }
 }

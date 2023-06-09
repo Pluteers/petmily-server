@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 public class CommentDTO extends BaseTimeEntity {
     private Long commentId;
     @ApiModelProperty(value = "댓글", example = "댓글내용")
+    @NotNull(message = "빈 댓글은 허용하지 않습니다")
     private String content;
+
     @ApiModelProperty(value = "좋아요", example = "좋아요 수")
     private int commentLike;
     @ApiModelProperty(value = "생성일자", example = "댓글 작성 시간")

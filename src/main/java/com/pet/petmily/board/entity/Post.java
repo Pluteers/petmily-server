@@ -12,6 +12,7 @@ import org.hibernate.annotations.Fetch;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 

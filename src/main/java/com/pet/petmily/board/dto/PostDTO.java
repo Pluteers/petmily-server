@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,7 +20,9 @@ import java.time.LocalDateTime;
 public class PostDTO extends BaseTimeEntity {
     private long id;
     @ApiModelProperty(value = "제목", example = "제목입니다.")
+    @NotNull(message = "제목은 필수입니다.")
     private String title;
+
     @ApiModelProperty(value = "내용", example = "여기에 글의 내용을 적습니다.")
     private String content;
     @ApiModelProperty(value = "url", example = "url입니다.")
