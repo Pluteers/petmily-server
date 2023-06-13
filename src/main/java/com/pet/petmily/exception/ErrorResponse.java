@@ -12,5 +12,5 @@ public class ErrorResponse {
         this.errorMessage = errorMessage;
     }
 
-    // Getter and setter methods
+
 }

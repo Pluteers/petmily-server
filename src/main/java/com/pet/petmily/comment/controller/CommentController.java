@@ -3,6 +3,7 @@ package com.pet.petmily.comment.controller;
 import com.pet.petmily.board.entity.Post;
 import com.pet.petmily.comment.dto.CommentDTO;
 import com.pet.petmily.comment.entity.Comment;
+import com.pet.petmily.comment.response.CommentAndPostResponse;
 import com.pet.petmily.comment.response.CommentResponse;
 import com.pet.petmily.comment.service.CommentService;
 
@@ -31,12 +32,11 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 목록 조회", notes = "게시물의 댓글 목록 조회")
     @GetMapping("/post/{postId}/comment")
-    public ResponseEntity<List<CommentDTO>> getCommentListByPost(@PathVariable Long postId) {
+    public CommentAndPostResponse<List<CommentDTO>> getCommentListByPost(@PathVariable Long postId) {
         try {
             List<CommentDTO> commentDTOList = commentService.getCommentListByPost(postId);
             log.info("댓글 목록 조회 성공");
-            return ResponseEntity.ok()
-                    .body(commentDTOList);
+            return new CommentAndPostResponse<>(postId,commentDTOList);
         } catch (Exception e) {
             log.error("댓글 목록 조회 실패", e);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
