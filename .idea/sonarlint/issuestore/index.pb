@@ -56,8 +56,6 @@ e
 5src/main/java/com/pet/petmily/user/entity/Member.java,f\1\f1d4eb98942495766a60d479ad6ec619d5680e0f
 q
 Asrc/main/java/com/pet/petmily/board/response/ChannelResponse.java,d\e\deb23f2ff14669cc91ded299b476a774f6b487a9
-l
-<src/main/java/com/pet/petmily/board/service/PostService.java,e\b\eb34048971ce4b0d8e127988e33b16cf0161ba70
 s
 Csrc/main/java/com/pet/petmily/scrap/controller/ScrapController.java,f\7\f77cc5bc3419778514e659d52ef047f682c3442a
 m
@@ -76,7 +74,3 @@ l
 <src/main/java/com/pet/petmily/user/service/LoginService.java,7\b\7b3cf781317f4cbc1095a8df8c6256dbb7dc5cd8
 €
 Psrc/main/java/com/pet/petmily/user/filter/JwtAuthenticationProcessingFilter.java,0\b\0bf0781a6ebbb0d036acd2ede922267b4802188f
-r
-Bsrc/main/java/com/pet/petmily/board/controller/PostController.java,b\2\b2255e33a97608e51b3cb8d530ca4dc467c7c31e
-o
-?src/main/java/com/pet/petmily/board/service/ChannelService.java,6\c\6c70ab9b1fda35ba84438dcf376caeebd089aa93

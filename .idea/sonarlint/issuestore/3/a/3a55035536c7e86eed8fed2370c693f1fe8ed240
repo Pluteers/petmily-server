@@ -1,0 +1,28 @@
+
+g	java:S112N"FDefine and throw a dedicated exception instead of using a generic one.(¬—ü¯üÿÿÿÿ8¨÷ĞĞ‹1
+g	java:S112c"FDefine and throw a dedicated exception instead of using a generic one.(»ŠÍŸûÿÿÿÿ8©÷ĞĞ‹1
+Q
+java:S3740c"/Provide the parametrized type for this generic.(»ŠÍŸûÿÿÿÿ8©÷ĞĞ‹1
+L
+java:S3740e"/Provide the parametrized type for this generic.(ø’šÉ8©÷ĞĞ‹1
+Q
+java:S3740h"/Provide the parametrized type for this generic.(Õ²‰´ÿÿÿÿÿ8©÷ĞĞ‹1
+Q
+java:S3740k"/Provide the parametrized type for this generic.(‰òØ¢ıÿÿÿÿ8©÷ĞĞ‹1
+Q
+java:S3740q"/Provide the parametrized type for this generic.(úşÖÕıÿÿÿÿ8©÷ĞĞ‹1
+Q
+java:S3740s"/Provide the parametrized type for this generic.(Óœ½‚øÿÿÿÿ8©÷ĞĞ‹1
+L
+java:S3740v"/Provide the parametrized type for this generic.(ã‡æ8©÷ĞĞ‹1
+Q
+java:S3740y"/Provide the parametrized type for this generic.(ÍºÎäıÿÿÿÿ8äùÑĞ‹1
+m
+java:S3655H"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(‡ß¾ä8Â÷ĞĞ‹1
+r
+java:S3655D"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ãËıÓıÿÿÿÿ8Â÷ĞĞ‹1
+r
+java:S3655K"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦Œ¡Äøÿÿÿÿ8Â÷ĞĞ‹1
+]	java:S125<"<This block of commented-out lines of code should be removed.(ÉÏñòÿÿÿÿÿ8Í÷ĞĞ‹1
+
+java:S1130c"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(»ŠÍŸûÿÿÿÿ8Ó÷ĞĞ‹1

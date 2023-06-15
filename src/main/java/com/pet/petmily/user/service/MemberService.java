@@ -98,7 +98,7 @@ public class MemberService {
     @Transactional
     public ResponseEntity checkEmail(String email) throws Exception{
         if(memberRepository.findByEmail(email).isPresent()){
-            return new ResponseEntity("이미 존재하는 이메일입니다.",HttpStatus.OK);
+            return new ResponseEntity("이미 존재하는 이메일입니다.",HttpStatus.BAD_REQUEST);
         }
         else{
             return new ResponseEntity("사용 가능한 이메일입니다.",HttpStatus.OK);
@@ -109,7 +109,7 @@ public class MemberService {
     @Transactional
     public ResponseEntity checkNickname(String nickname) {
         if(memberRepository.findByNickname(nickname).isPresent()){
-            return new ResponseEntity("이미 존재하는 닉네임입니다.",HttpStatus.OK);
+            return new ResponseEntity("이미 존재하는 닉네임입니다.",HttpStatus.BAD_REQUEST);
         }
         else{
             return new ResponseEntity("사용 가능한 닉네임입니다.",HttpStatus.OK);

@@ -383,39 +383,40 @@ public class PostController {
     }
     @ApiOperation(value = "게시판 검색", notes = "게시판 검색")
     @GetMapping("/post/search")
-    public List<PostDTO> searchPosts(@RequestParam("query") String query) {
-       try {
-           log.info("게시판 검색 api 진입");
-           log.info("검색어 : " + query);
+    public Response searchPosts(@RequestParam("query") String query) {
+        try {
+            log.info("게시판 검색 api 진입");
+            log.info("검색어 : " + query);
 
 
-           List<Post> foundPosts = postService.searchPosts(query);
+            List<Post> foundPosts = postService.searchPosts(query);
 
-           List<PostDTO> postDTOs = new ArrayList<>();
-           for (Post post : foundPosts) {
-               PostDTO postDTO = PostDTO.toDto(post);
-               postDTOs.add(postDTO);
-           }
+            List<PostDTO> postDTOs = new ArrayList<>();
+            for (Post post : foundPosts) {
+                PostDTO postDTO = PostDTO.toDto(post);
+                postDTOs.add(postDTO);
+            }
 
 
-           return postDTOs;
-       }catch (Exception e){
-        log.info("게시판 검색 실패");
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+            return new Response<>("게시판 검색 성공", "게시판 검색 성공", postDTOs);
+        }catch (Exception e){
+            log.info("게시판 검색 실패");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
 
-       }
+        }
     }
 
     @ApiOperation(value = "채널 이름 검색", notes = "채널 이름 검색")
     @GetMapping("/channel/search")
-    public List<ChannelDTO> searchChannels(@RequestParam("query") String query) {
+    public Response searchChannels(@RequestParam("query") String query) {
         List<Channel> foundChannels = channelService.searchChannels(query);
         List<ChannelDTO> channelDTOs = new ArrayList<>();
         for (Channel channel : foundChannels) {
             ChannelDTO channelDTO = ChannelDTO.toDto(channel);
             channelDTOs.add(channelDTO);
         }
-        return channelDTOs;
+
+        return new Response<>("채널 검색 성공", "채널 검색 성공", channelDTOs);
     }
 
 

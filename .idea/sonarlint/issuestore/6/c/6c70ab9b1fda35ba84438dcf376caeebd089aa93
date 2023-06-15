@@ -1,6 +1,0 @@
-
-„
-java:S1192R"nDefine a constant instead of duplicating this literal "ì±„ë„ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. channelId=" 3 times.(™«¸Ş
-l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰ÌÿÎşÿÿÿÿ
-W
-java:S1126r"AReplace this if-then-else statement by a single return statement.(¬¥ü†

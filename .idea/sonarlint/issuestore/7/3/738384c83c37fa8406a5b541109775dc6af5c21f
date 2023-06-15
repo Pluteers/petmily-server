@@ -1,0 +1,17 @@
+
+L
+java:S3740|"/Provide the parametrized type for this generic.(ğ™¢ª8‚¡·Õ‹1
+R
+java:S3740‚"/Provide the parametrized type for this generic.(óºœ»ÿÿÿÿÿ8ƒ¡·Õ‹1
+z
+java:S11929"XDefine a constant instead of duplicating this literal "ì—†ëŠ” íšŒì›ì…ë‹ˆë‹¤." 3 times.(ÁÍ»ÿÿÿÿÿ8«ÙÿÏ‹1
+x
+java:S1192„"UDefine a constant instead of duplicating this literal "ëŒ“ê¸€ ìˆ˜ì • ì‹¤íŒ¨" 5 times.(ØÜÀ§ûÿÿÿÿ8¬ÙÿÏ‹1
+r
+java:S3655G"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(·î……ùÿÿÿÿ8±¡·Õ‹1
+r
+java:S3655E"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä…ÔŠüÿÿÿÿ8±¡·Õ‹1
+X
+java:S1854J"BRemove this useless assignment to local variable "createdComment".(­ÒãÓ
+I
+java:S1481J"3Remove this unused "createdComment" local variable.(­ÒãÓ

@@ -44,19 +44,20 @@ public class CommentController {
     }
     @ApiOperation(value = "내가 쓴 댓글 조회" ,notes = "내가 쓴 댓글 조회")
     @GetMapping("/comment/mycomment")
-    public ResponseEntity<List<CommentDTO>> getMyCommentList(Authentication auth){
+    public CommentResponse<List<CommentDTO>> getMyCommentList(Authentication auth){
         UserDetails userDetails=(UserDetails)auth.getPrincipal();
         Optional<Member> memberOptional=memberRepository.findByEmail(userDetails.getUsername());
         if(memberOptional.isPresent()){
             Member member=memberOptional.get();
             List<CommentDTO> commentDTOList=commentService.getMyCommentList(member.getId());
 
-            return ResponseEntity.ok().body(commentDTOList);
+            return new CommentResponse<>("성공","내 댓글 목록 조회",member.getNickname(),commentDTOList);
         }
         else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return new CommentResponse<>("실패","없는 회원입니다.",null,null);
         }
     }
+
 
 
     @ApiOperation(value = "댓글 등록", notes = "게시물에 댓글 등록")
